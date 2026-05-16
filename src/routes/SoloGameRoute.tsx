@@ -25,6 +25,8 @@ export function SoloGameRoute() {
   const finishRequestedRef = useRef(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const isFinished = game ? remaining <= 0 || game.finishedAtMs !== null : false;
+
   const currentAnswer = game ? getCurrentGameAnswer(game.answers) : null;
   const currentLastSyllable = currentAnswer
     ? getLastSyllableFromAnswer(currentAnswer)
@@ -47,6 +49,12 @@ export function SoloGameRoute() {
     });
     inputRef.current?.blur();
   }, [game, remaining]);
+
+  useEffect(() => {
+    if (!isSubmitting && !isFinished) {
+      inputRef.current?.focus();
+    }
+  }, [isSubmitting, isFinished]);
 
   useEffect(() => {
     if (!alertMessage) {
@@ -72,8 +80,6 @@ export function SoloGameRoute() {
   if (!game || !currentAnswer) {
     return <Navigate to="/bermain" replace />;
   }
-
-  const isFinished = remaining <= 0 || game.finishedAtMs !== null;
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -104,17 +110,19 @@ export function SoloGameRoute() {
     setAlertMessage('');
 
     try {
+      inputRef.current?.classList.remove('animate-shake');
+
       const answer = await createAnswer(game, word, isFromSkip);
       await appendSoloAnswer(game, answer);
 
       if (!answer.isCorrect) {
         setAlertMessage(answer.note ?? 'kata tidak valid.');
+        setTimeout(() => inputRef.current?.classList.add('animate-shake'), 10);
         return;
       }
 
       const nextLastSyllable = getLastSyllableFromAnswer(answer);
       setAnswerWord(nextLastSyllable);
-      inputRef.current?.focus();
     } catch (error_) {
       setAlertMessage(
         error_ instanceof Error ? error_.message : 'Jawaban gagal dikirim.'
@@ -151,7 +159,7 @@ export function SoloGameRoute() {
               autoComplete="off"
               autoCorrect="off"
               autoFocus
-              className="focus-ring w-full border-[3px] border-zinc-950 bg-white px-4 py-4 pr-16 text-sm font-bold disabled:bg-zinc-200"
+              className="focus-ring pixel-box w-full bg-white px-4 py-4 pr-16 text-sm font-bold disabled:bg-zinc-200"
               disabled={isFinished || isSubmitting}
               id="answer-word"
               name="answer-word"
@@ -172,7 +180,7 @@ export function SoloGameRoute() {
           </div>
         </form>
         {alertMessage && (
-          <div className="mt-12 border-[3px] border-zinc-950 bg-[#e76e54] px-5 py-4 text-center text-sm font-bold text-white">
+          <div className="pixel-box mt-12 bg-[#e76e54] px-5 py-4 text-center text-xs font-bold text-white sm:text-sm">
             {alertMessage}
           </div>
         )}

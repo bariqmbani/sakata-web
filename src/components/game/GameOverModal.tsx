@@ -29,19 +29,19 @@ export function GameOverModal({ game }: GameOverModalProps) {
         <div className="mt-6 space-y-4 text-sm leading-7">
           <p>
             Anda menunjukkan performa permainan yang{' '}
-            <strong className="text-amber-700">{getPerformance(game)}</strong>.
+            <strong className="text-[#8f8f17]">{getPerformance(game)}</strong>.
           </p>
           <p>
             Dalam waktu{' '}
-            <strong className="text-amber-700">
+            <strong className="text-[#8f8f17]">
               {game.settings.duration} detik
             </strong>
             , Anda berhasil menyambungkan{' '}
-            <strong className="text-amber-700">
+            <strong className="text-[#8f8f17]">
               {countCorrectAnswers(game.answers)} kata
             </strong>{' '}
             dengan{' '}
-            <strong className="text-amber-700">
+            <strong className="text-[#8f8f17]">
               akurasi {countAnswersAccuracy(game.answers)}%
             </strong>
             .

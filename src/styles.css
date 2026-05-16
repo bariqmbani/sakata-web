@@ -1,11 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import 'tailwindcss';
 
 :root {
   color: #18181b;
   background: #09090b;
-  font-family:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-    'Courier New', monospace;
+  font-family: 'Press Start 2P', ui-monospace, SFMono-Regular, monospace, system-ui, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -20,6 +19,8 @@ body,
 
 body {
   margin: 0;
+  /* For retro aesthetic, avoid smooth scrolling */
+  scroll-behavior: auto;
 }
 
 button,
@@ -27,15 +28,32 @@ input {
   font: inherit;
 }
 
+/* NES-style Pixel Borders */
 .pixel-box {
-  border: 3px solid #18181b;
-  box-shadow: 6px 6px 0 #18181b;
+  border-style: solid;
+  border-width: 4px;
+  border-color: rgb(24, 24, 27);
+  border-radius: 0;
+  clip-path: polygon(
+    0px 4px, 4px 4px, 4px 0px,
+    calc(100% - 4px) 0px, calc(100% - 4px) 4px, 100% 4px,
+    100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%,
+    4px 100%, 4px calc(100% - 4px), 0px calc(100% - 4px)
+  );
 }
 
 .panel {
-  border: 3px solid #18181b;
+  border-style: solid;
+  border-width: 4px;
+  border-color: rgb(24, 24, 27);
+  border-radius: 0;
+  clip-path: polygon(
+    0px 4px, 4px 4px, 4px 0px,
+    calc(100% - 4px) 0px, calc(100% - 4px) 4px, 100% 4px,
+    100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%,
+    4px 100%, 4px calc(100% - 4px), 0px calc(100% - 4px)
+  );
   background: #f4f7f8;
-  box-shadow: 6px 6px 0 #18181b;
   padding: 1.5rem;
 }
 
@@ -46,4 +64,59 @@ input {
 
 .focus-ring:focus-visible {
   outline-color: #a16207;
+}
+
+/* Invalid Word Animation */
+@keyframes horizontal-shaking {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(4px); }
+  50% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+  100% { transform: translateX(0); }
+}
+
+.animate-shake {
+  animation: horizontal-shaking 0.3s ease-in-out;
+  border-color: #e76e54 !important;
+  color: #e76e54 !important;
+}
+
+/* Retro Tooltip */
+.retro-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.retro-tooltip .tooltip-text {
+  visibility: hidden;
+  width: max-content;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 0; /* Keep it blocky */
+  padding: 8px 12px;
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  font-size: 0.75rem;
+}
+
+/* Retro Tooltip Arrow */
+.retro-tooltip .tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -6px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+.retro-tooltip:hover .tooltip-text,
+.retro-tooltip:active .tooltip-text,
+.retro-tooltip:focus-within .tooltip-text {
+  visibility: visible;
 }

@@ -28,36 +28,52 @@ export function HowToPlayRoute() {
           terakhir kata sebelumnya.
         </p>
         <div className="panel my-6 bg-white text-center text-xs leading-7 sm:text-sm">
-          <a
-            className="underline decoration-dotted"
-            href="https://kbbi.kemdikbud.go.id/entri/sifat"
-            rel="noreferrer"
-            target="_blank"
-            title="si.fat"
-          >
-            sifat
-          </a>
+          <div className="retro-tooltip group">
+            <a
+              className="underline decoration-dotted cursor-pointer"
+              href="https://kbbi.kemdikbud.go.id/entri/sifat"
+              rel="noreferrer"
+              target="_blank"
+            >
+              sifat
+            </a>
+            <span className="tooltip-text">si.fat</span>
+          </div>
           <span> -&gt; </span>
-          <a
-            className="underline decoration-dotted"
-            href="https://kbbi.kemdikbud.go.id/entri/fatwa"
-            rel="noreferrer"
-            target="_blank"
-            title="fat.wa"
-          >
-            fatwa
-          </a>
+          <div className="retro-tooltip group">
+            <a
+              className="underline decoration-dotted cursor-pointer"
+              href="https://kbbi.kemdikbud.go.id/entri/fatwa"
+              rel="noreferrer"
+              target="_blank"
+            >
+              fatwa
+            </a>
+            <span className="tooltip-text">fat.wa</span>
+          </div>
           <span> -&gt; </span>
-          <a
-            className="underline decoration-dotted"
-            href="https://kbbi.kemdikbud.go.id/entri/wanita"
-            rel="noreferrer"
-            target="_blank"
-            title="wa.ni.ta"
-          >
-            wanita
-          </a>
-          <span> -&gt; ta...</span>
+          <div className="retro-tooltip group">
+            <a
+              className="underline decoration-dotted cursor-pointer"
+              href="https://kbbi.kemdikbud.go.id/entri/wanita"
+              rel="noreferrer"
+              target="_blank"
+            >
+              wanita
+            </a>
+            <span className="tooltip-text">wa.ni.ta</span>
+          </div>
+          <span> -&gt; </span>
+          <div className="retro-tooltip group">
+            <span className="cursor-pointer underline decoration-dotted">ta...</span>
+            <span className="tooltip-text">
+              ta.hu
+              <br />
+              ta.kut
+              <br />
+              tam.bang
+            </span>
+          </div>
         </div>
         <p>Kata pertama akan ditentukan secara acak.</p>
         <p className="mt-6">
