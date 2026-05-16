@@ -1,72 +1,50 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { splitLastSyllable } from '@bariqmbani/sakata-syllable-engine';
 
-import { clearSyllableCache, splitWordByLastSyllable } from './syllable';
-import type { SyllableApiRequestError } from './syllable';
+import { splitWordByLastSyllable } from './syllable';
 
-describe('syllable client', () => {
+vi.mock('@bariqmbani/sakata-syllable-engine', () => ({
+  splitLastSyllable: vi.fn()
+}));
+
+describe('syllable client wrapper', () => {
   afterEach(() => {
-    clearSyllableCache();
     vi.restoreAllMocks();
   });
 
-  it('returns normalized syllable data from the worker', async () => {
-    const fetchMock = vi.fn().mockResolvedValue(
-      new Response(
-        JSON.stringify({
-          word: 'makan',
-          lastSyllable: 'kan',
-          parts: ['ma', 'kan']
-        }),
-        { status: 200 }
-      )
-    );
-    vi.stubGlobal('fetch', fetchMock);
+  it('returns mapped syllable data from the engine', async () => {
+    vi.mocked(splitLastSyllable).mockReturnValue({
+      original: 'makan',
+      normalized: 'makan',
+      prefix: 'ma',
+      last: 'kan',
+      parts: ['ma', 'kan'],
+      ruleId: 'mock-rule',
+      source: 'rule'
+    });
 
     await expect(splitWordByLastSyllable('makan')).resolves.toEqual({
       word: 'makan',
       lastSyllable: 'kan',
       parts: ['ma', 'kan']
     });
-    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(splitLastSyllable).toHaveBeenCalledTimes(1);
+    expect(splitLastSyllable).toHaveBeenCalledWith('makan');
   });
 
-  it('reuses cached results for repeated words', async () => {
-    const fetchMock = vi.fn().mockResolvedValue(
-      new Response(
-        JSON.stringify({
-          word: 'makan',
-          lastSyllable: 'kan',
-          parts: ['ma', 'kan']
-        }),
-        { status: 200 }
-      )
+  it('throws an error for empty input', async () => {
+    await expect(splitWordByLastSyllable('   ')).rejects.toThrow(
+      'Kata wajib diisi.'
     );
-    vi.stubGlobal('fetch', fetchMock);
-
-    await splitWordByLastSyllable('makan');
-    await splitWordByLastSyllable('makan');
-
-    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
-  it('throws the worker error message for invalid input', async () => {
-    vi.stubGlobal(
-      'fetch',
-      vi.fn().mockResolvedValue(
-        new Response(
-          JSON.stringify({
-            error: 'EMPTY_INPUT',
-            message: 'Kata wajib diisi.'
-          }),
-          { status: 400 }
-        )
-      )
-    );
+  it('forwards errors from the engine', async () => {
+    vi.mocked(splitLastSyllable).mockImplementation(() => {
+      throw new Error('Engine error');
+    });
 
-    await expect(splitWordByLastSyllable('!!!')).rejects.toMatchObject({
-      message: 'Kata wajib diisi.',
-      status: 400,
-      code: 'EMPTY_INPUT'
-    } satisfies Partial<SyllableApiRequestError>);
+    await expect(splitWordByLastSyllable('invalid')).rejects.toThrow(
+      'Engine error'
+    );
   });
 });
