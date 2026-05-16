@@ -273,6 +273,18 @@ Do not copy or rewrite syllable logic into this repo. If the engine needs change
 
 ---
 
+## Analytics
+
+We use Firebase Analytics to track user behavior and game performance. This requires the `VITE_FIREBASE_MEASUREMENT_ID` environment variable to be set. The following custom events are currently tracked:
+
+- `home_view`: Logged when a user lands on the main menu. Used to measure drop-off before playing.
+- `how_to_play_view`: Logged when a user views the 'Cara Bermain' screen.
+- `game_start`: Logged when a solo game is created. Tracks `duration_setting` and `allow_skip`.
+- `word_submitted`: Logged when a user attempts an answer. Tracks `is_correct` and `is_skipped`.
+- `game_complete`: Logged when the game timer runs out or finishes. Tracks the calculated `score`, `accuracy`, `performance` grade, and total `playtime_seconds`.
+
+---
+
 ## Authentication
 
 Support three auth modes:

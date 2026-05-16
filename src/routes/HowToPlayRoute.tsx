@@ -1,7 +1,14 @@
+import { useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router';
 
+import { logHowToPlayView } from '@/services/analytics.service';
+
 export function HowToPlayRoute() {
+  useEffect(() => {
+    logHowToPlayView();
+  }, []);
+
   return (
     <div className="flex flex-1 flex-col">
       <header className="flex min-h-16 items-center gap-3 text-xl font-bold">

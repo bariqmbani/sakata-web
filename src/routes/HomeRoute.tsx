@@ -1,6 +1,13 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router';
 
+import { logHomeView } from '@/services/analytics.service';
+
 export function HomeRoute() {
+  useEffect(() => {
+    logHomeView();
+  }, []);
+
   return (
     <div className="flex flex-1 flex-col items-center justify-center pb-24 text-center">
       <div className="select-none">
