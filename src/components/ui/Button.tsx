@@ -5,9 +5,9 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const variants = {
-  primary: 'bg-zinc-950 text-white hover:bg-zinc-800',
-  secondary: 'bg-white text-zinc-950 hover:bg-zinc-100',
-  danger: 'bg-[#e76e54] text-white hover:bg-[#cf553d]'
+  primary: '', /* Default pixel-btn already looks like this */
+  secondary: '', /* Secondary can just be default too */
+  danger: '!bg-[#e76e54] !text-white' /* Override bg/text for danger */
 };
 
 export function Button({
@@ -18,7 +18,7 @@ export function Button({
 }: ButtonProps) {
   return (
     <button
-      className={`focus-ring pixel-box inline-flex min-h-12 items-center justify-center gap-2 px-5 py-3 text-sm font-bold transition disabled:cursor-not-allowed disabled:opacity-50 ${variants[variant]} ${className}`}
+      className={`focus-ring pixel-btn inline-flex min-h-12 items-center justify-center gap-2 px-5 py-3 text-sm font-bold transition-none ${variants[variant]} ${className}`}
       type={type}
       {...props}
     />

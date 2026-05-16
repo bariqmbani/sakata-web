@@ -6,9 +6,12 @@ type RadioCardProps = InputHTMLAttributes<HTMLInputElement> & {
 
 export function RadioCard({ label, className = '', ...props }: RadioCardProps) {
   return (
-    <label className={`block ${className}`}>
+    <label className={`group flex cursor-pointer items-center gap-2 ${className}`}>
       <input className="peer sr-only" type="radio" {...props} />
-      <span className="focus-ring flex min-h-12 cursor-pointer items-center border-[3px] border-zinc-950 bg-white px-4 py-3 text-sm font-bold peer-checked:bg-amber-200 peer-focus-visible:outline peer-focus-visible:outline-[3px] peer-focus-visible:outline-offset-[3px] peer-focus-visible:outline-amber-700">
+      <span className="w-4 text-[#8f8f17] opacity-0 peer-checked:opacity-100 peer-focus-visible:opacity-100">
+        ►
+      </span>
+      <span className="text-sm font-bold group-hover:text-zinc-600">
         {label}
       </span>
     </label>

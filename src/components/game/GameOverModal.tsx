@@ -48,7 +48,7 @@ export function GameOverModal({ game }: GameOverModalProps) {
           </p>
         </div>
         <Link
-          className="focus-ring pixel-box mt-6 inline-flex min-h-12 w-full items-center justify-center bg-zinc-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-zinc-800"
+          className="focus-ring pixel-btn mt-6 inline-flex min-h-12 w-full items-center justify-center px-5 py-3 text-sm font-bold transition-none"
           to="/bermain"
         >
           Main Lagi

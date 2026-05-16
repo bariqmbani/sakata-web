@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import 'tailwindcss';
 
+@theme {
+  --font-sans: 'Press Start 2P', ui-sans-serif, system-ui, sans-serif;
+}
+
 :root {
   color: #18181b;
   background: #09090b;
@@ -47,14 +51,42 @@ input {
   border-width: 4px;
   border-color: rgb(24, 24, 27);
   border-radius: 0;
+  background: #f4f7f8;
+  padding: 1.5rem;
+}
+
+/* NES-style 3D Button */
+.pixel-btn {
+  border-style: solid;
+  border-width: 4px;
+  border-color: rgb(24, 24, 27);
+  border-radius: 0;
   clip-path: polygon(
     0px 4px, 4px 4px, 4px 0px,
     calc(100% - 4px) 0px, calc(100% - 4px) 4px, 100% 4px,
     100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%,
     4px 100%, 4px calc(100% - 4px), 0px calc(100% - 4px)
   );
-  background: #f4f7f8;
-  padding: 1.5rem;
+  background-color: #fff;
+  color: #212529;
+  box-shadow: inset -4px -4px #adafbc;
+  transition: none;
+}
+
+.pixel-btn:hover:not(:disabled) {
+  background-color: #e7e7e7;
+  box-shadow: inset -6px -6px #adafbc;
+}
+
+.pixel-btn:active:not(:disabled) {
+  box-shadow: inset 4px 4px #adafbc;
+}
+
+.pixel-btn:disabled {
+  background-color: #d3d3d3;
+  color: #212529;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 .focus-ring {

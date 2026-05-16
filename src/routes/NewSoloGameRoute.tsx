@@ -67,7 +67,7 @@ export function NewSoloGameRoute({ user }: NewSoloGameRouteProps) {
       >
         <section>
           <h2 className="mb-4 text-lg font-bold underline">Durasi Permainan</h2>
-          <div className="grid gap-3 sm:grid-cols-3">
+          <div className="flex flex-col gap-3">
             {GAME_DURATIONS.map((duration) => (
               <RadioCard
                 checked={settings.duration === duration}
@@ -89,7 +89,7 @@ export function NewSoloGameRoute({ user }: NewSoloGameRouteProps) {
           <h2 className="mb-4 text-lg font-bold underline">
             Dapat Melewati Kata
           </h2>
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="flex flex-col gap-3">
             <RadioCard
               checked={settings.allowSkip}
               label="Ya"

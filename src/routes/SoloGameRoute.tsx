@@ -129,6 +129,7 @@ export function SoloGameRoute() {
       );
     } finally {
       setIsSubmitting(false);
+      setTimeout(() => inputRef.current?.focus(), 0);
     }
   }
 

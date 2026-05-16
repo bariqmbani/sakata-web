@@ -49,7 +49,7 @@ export function HowToPlayRoute() {
             >
               fatwa
             </a>
-            <span className="tooltip-text">fat.wa</span>
+            <span className="tooltip-text z-10">fat.wa</span>
           </div>
           <span> -&gt; </span>
           <div className="retro-tooltip group">
@@ -61,12 +61,14 @@ export function HowToPlayRoute() {
             >
               wanita
             </a>
-            <span className="tooltip-text">wa.ni.ta</span>
+            <span className="tooltip-text z-10">wa.ni.ta</span>
           </div>
           <span> -&gt; </span>
           <div className="retro-tooltip group">
-            <span className="cursor-pointer underline decoration-dotted">ta...</span>
-            <span className="tooltip-text">
+            <span className="cursor-help font-bold text-[#8f8f17] underline decoration-dotted" tabIndex={0}>
+              ta...
+            </span>
+            <span className="tooltip-text z-10 w-max !ml-[-30px]">
               ta.hu
               <br />
               ta.kut
