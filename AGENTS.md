@@ -10,7 +10,7 @@ Sa-Kata is an Indonesian word-chain game. Players chain words by matching the la
 ma-kan → kan-di-dat → da-ta → ta-ri → ...
 ```
 
-The syllable engine is handled by the sibling package `sakata-syllable-engine`. This app consumes it as a library and via a Cloudflare Worker edge API.
+The syllable engine is handled by the sibling package `@bariqmbani/sakata-syllable-engine`. This app consumes it as a library directly.
 
 ---
 
@@ -26,7 +26,8 @@ The syllable engine is handled by the sibling package `sakata-syllable-engine`. 
 | Presence     | Firebase Realtime Database           | Player online/offline/disconnect detection                                        |
 | Auth         | Firebase Authentication              | Anonymous auth for quick play, Google/email for persistent profiles               |
 | Hosting      | Firebase Hosting                     | Or Cloudflare Pages                                                               |
-| Syllable API | `sakata-syllable-engine` npm package | Import directly for client-side use. Fall back to Cloudflare Worker API if needed |
+| Analytics    | Google Analytics (Firebase)          | Track user engagement, page views, and custom events                              |
+| Syllable Eng | `@bariqmbani/sakata-syllable-engine` | Import directly for client-side use.                                              |
 | Testing      | Vitest + Testing Library             |                                                                                   |
 | Linting      | ESLint flat config + Prettier        |                                                                                   |
 
@@ -45,7 +46,7 @@ sakata-web/
       game/                     # Game-specific (WordDisplay, AnswerInput, ScoreBoard)
     hooks/                      # Custom React hooks
     lib/
-      firebase.ts               # Firebase app init + exports (auth, db, rtdb)
+      firebase.ts               # Firebase app init + exports (auth, db, rtdb, analytics)
       syllable.ts               # Thin wrapper around sakata-syllable-engine
     services/
       auth.service.ts           # Login, logout, anonymous auth
@@ -61,7 +62,7 @@ sakata-web/
 
 1. **Client-side only.** No server, no SSR. All game logic runs in the browser. Firebase handles persistence and real-time sync.
 
-2. **Syllable engine runs client-side.** Import `sakata-syllable-engine` directly. The engine is lightweight, deterministic, and has no Node.js dependencies — it was designed for this. Do not duplicate syllable logic in this repo.
+2. **Syllable engine runs client-side.** Import `@bariqmbani/sakata-syllable-engine` directly. The engine is lightweight, deterministic, and has no Node.js dependencies — it was designed for this. Do not duplicate syllable logic in this repo.
 
 3. **Firebase Firestore for game data.** Documents for games, rooms, players. Real-time listeners (`onSnapshot`) push state changes to all connected clients.
 
@@ -218,14 +219,14 @@ Start with option 3 for solo mode and option 1 or 2 for multiplayer.
 
 ## Syllable Engine Integration
 
-The `sakata-syllable-engine` package exports:
+The `@bariqmbani/sakata-syllable-engine` package exports:
 
 ```ts
 import {
   getLastSyllable,
   identifyLastSyllable,
   splitLastSyllable
-} from 'sakata-syllable-engine';
+} from '@bariqmbani/sakata-syllable-engine';
 
 identifyLastSyllable('makan');
 // ['ma', 'kan']
@@ -238,12 +239,12 @@ splitLastSyllable('makan');
 //   last: 'kan', parts: ['ma', 'kan'], ruleId: 'ends-with-vc', source: 'rule' }
 ```
 
-Install it as an npm dependency. If it's not yet published, use a local file dependency or workspace link:
+Install it as an npm dependency:
 
 ```json
 {
   "dependencies": {
-    "sakata-syllable-engine": "file:../sakata-syllable-engine"
+    "@bariqmbani/sakata-syllable-engine": "^0.1.0"
   }
 }
 ```
@@ -254,8 +255,8 @@ Create a thin wrapper at `src/lib/syllable.ts` to centralize usage:
 import {
   identifyLastSyllable,
   splitLastSyllable
-} from 'sakata-syllable-engine';
-import type { LastSyllableResult } from 'sakata-syllable-engine';
+} from '@bariqmbani/sakata-syllable-engine';
+import type { LastSyllableResult } from '@bariqmbani/sakata-syllable-engine';
 
 export function getSyllables(word: string): string[] {
   return identifyLastSyllable(word);
@@ -268,7 +269,7 @@ export function getLastSyllableOf(word: string): string {
 export type { LastSyllableResult };
 ```
 
-Do not copy or rewrite syllable logic into this repo. If the engine needs changes, make them in `sakata-syllable-engine`.
+Do not copy or rewrite syllable logic into this repo. If the engine needs changes, make them in `@bariqmbani/sakata-syllable-engine`.
 
 ---
 
@@ -385,7 +386,7 @@ npx vitest run src/hooks/useGameRoom.test.ts
 
 - Remix/Express server — no server in the new app.
 - In-memory `games[]` array — replaced by Firestore.
-- Legacy syllable engine (`syllabify.api.ts`, `word.util.ts`) — replaced by `sakata-syllable-engine` package.
+- Legacy syllable engine (`syllabify.api.ts`, `word.util.ts`) — replaced by `@bariqmbani/sakata-syllable-engine` package.
 - NES.css dependency — replaced by Tailwind.
 - SASS build pipeline — replaced by Tailwind.
 
@@ -410,7 +411,7 @@ Set up Vite + React + TypeScript + Tailwind + Firebase + React Router. Implement
 3. Set up Firebase project and `lib/firebase.ts`
 4. Set up React Router with route structure
 5. Implement anonymous auth (auto sign-in on first visit)
-6. Integrate `sakata-syllable-engine` package
+6. Integrate `@bariqmbani/sakata-syllable-engine` package
 7. Build solo game flow: options → game session → results
 8. Migrate word dictionary (static JSON or Firestore)
 9. Implement word validation (exists + starts with last syllable + not already used)
@@ -493,7 +494,7 @@ service cloud.firestore {
 
 ## Do Not Do
 
-- Rewrite or duplicate syllable logic — use `sakata-syllable-engine`
+- Rewrite or duplicate syllable logic — use `@bariqmbani/sakata-syllable-engine`
 - Add SSR or a Node.js server — this is a client-side SPA
 - Use `any` type
 - Import the legacy app's code directly — port what's needed, drop the rest

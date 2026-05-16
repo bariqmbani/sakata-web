@@ -2,12 +2,14 @@ import { getApp, getApps, initializeApp, type FirebaseApp } from 'firebase/app';
 import { getAuth, type Auth } from 'firebase/auth';
 import { getFirestore, type Firestore } from 'firebase/firestore';
 import { getDatabase, type Database } from 'firebase/database';
+import { getAnalytics, isSupported, type Analytics } from 'firebase/analytics';
 
 type FirebaseServices = {
   app: FirebaseApp;
   auth: Auth;
   db: Firestore;
   rtdb: Database;
+  analytics?: Analytics;
 };
 
 const requiredConfig = {
@@ -18,6 +20,10 @@ const requiredConfig = {
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
   databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL
+};
+
+const optionalConfig = {
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
 const missingFirebaseKeys = Object.entries(requiredConfig)
@@ -42,13 +48,19 @@ export function getFirebaseServices(): FirebaseServices {
   }
 
   if (!services) {
-    const app = getApps().length > 0 ? getApp() : initializeApp(requiredConfig);
+    const app = getApps().length > 0 ? getApp() : initializeApp({ ...requiredConfig, ...optionalConfig });
     services = {
       app,
       auth: getAuth(app),
       db: getFirestore(app),
       rtdb: getDatabase(app)
     };
+
+    void isSupported().then((supported) => {
+      if (supported && services) {
+        services.analytics = getAnalytics(app);
+      }
+    });
   }
 
   return services;
