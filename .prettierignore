@@ -1,0 +1,5 @@
+AGENTS.md
+public/data/words.json
+dist
+coverage
+node_modules
