@@ -6,7 +6,7 @@ Sa-Kata utilizes a **Retro 8-bit (NES) Aesthetic**. The design aims to replicate
 ## Core Elements
 
 ### 1. Typography
-- **Primary Font**: `Press Start 2P` (Google Fonts).
+- **Primary Font**: `Press Start 2P` [Google Fonts](https://fonts.google.com/specimen/Press+Start+2P).
 - **Fallback Fonts**: `ui-monospace, SFMono-Regular, monospace`.
 - **Characteristics**: Blocky, all-caps feeling even in lowercase, requires generous line spacing for readability.
 
