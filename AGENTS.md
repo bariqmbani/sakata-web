@@ -14,6 +14,26 @@ The syllable engine is handled by the sibling package `@bariqmbani/sakata-syllab
 
 ---
 
+## Knowledge Scope
+
+This file is the project entrypoint for future agents. Keep it as the concise map of durable project decisions, and put deeper reusable guidance in repo-local Codex skills:
+
+- Product/domain knowledge: `.codex/skills/sakata-product-domain`
+- Technical/architecture knowledge: `.codex/skills/sakata-technical-architecture`
+- Visual design system: `DESIGN.md`
+
+Current understanding:
+
+- The app is a retro 8-bit/NES-style Indonesian word-chain game.
+- Phase 1 solo mode is implemented with anonymous auth, Firestore-persisted solo games, local dictionary data, analytics, and profile/history surfaces.
+- The home screen should remain a clean title menu. Do not add dashboard-style panels there. Player stats and game history belong in `/profil`; the home screen may show `Lanjutkan Permainan` only when an unfinished game exists.
+- `Papan Peringkat` is intentionally visible as a future feature but disabled/marked `Segera` until leaderboard rules, data visibility, and security rules are designed.
+- Multiplayer, persistent sign-in, account linking, leaderboard, and anti-cheat hardening are roadmap work.
+
+When a task involves product behavior, UI copy, information architecture, route content, feature prioritization, or game-domain terminology, load the product-domain skill. When a task involves code architecture, Firebase data flow, hooks/services, security rules, validation, or tests, load the technical-architecture skill.
+
+---
+
 ## Tech Stack
 
 | Layer        | Technology                           | Notes                                                                             |
@@ -440,6 +460,7 @@ Acceptance: Solo mode works identically to the legacy app. Game state persists i
 3. User profile page with game stats
 4. Game history list (past solo games)
 5. Update stats after each game (games played, accuracy, best streak)
+6. Prepare stats/history data so future badges can be derived without changing past game documents
 
 Acceptance: Users can sign in, view profile, and see past game results.
 
@@ -461,10 +482,12 @@ Acceptance: Two or more players can play a word-chain game in real-time. Disconn
 1. Cloud Function for server-side word validation in multiplayer
 2. Room matchmaking (optional — list open rooms)
 3. Leaderboard page
-4. Mobile-responsive layout
-5. Loading states, error boundaries, empty states
-6. Animations and transitions
-7. Accessibility audit
+4. Daily challenge (`Tantangan Harian`) using a shared daily starting word or required syllable
+5. Badges/achievements (`Lencana`) derived from stats and game history
+6. Mobile-responsive layout
+7. Loading states, error boundaries, empty states
+8. Animations and transitions
+9. Accessibility audit
 
 ---
 

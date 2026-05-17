@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sa-Kata Product Domain"
+  short_description: "Sa-Kata product, UX, and gameplay rules."
+  default_prompt: "Use $sakata-product-domain to shape Sa-Kata product behavior, Indonesian UI copy, menu structure, profile/history scope, or roadmap decisions."

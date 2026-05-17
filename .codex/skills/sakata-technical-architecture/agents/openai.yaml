@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sa-Kata Technical Architecture"
+  short_description: "Sa-Kata architecture and Firebase patterns."
+  default_prompt: "Use $sakata-technical-architecture to implement or review Sa-Kata React, Firebase, data flow, validation, or testing changes."
