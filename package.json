@@ -13,8 +13,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
-    "typecheck": "tsc --noEmit",
-    "generate:words": "node scripts/generate-words.mjs"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@bariqmbani/sakata-syllable-engine": "^0.1.0",

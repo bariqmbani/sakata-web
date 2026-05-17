@@ -6,7 +6,6 @@ React + Vite rewrite of the legacy Sa-Kata web app.
 
 ```bash
 npm install
-npm run generate:words
 npm run dev
 ```
 
