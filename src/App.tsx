@@ -7,6 +7,7 @@ import { getMissingFirebaseKeys, isFirebaseConfigured } from '@/lib/firebase';
 import { HomeRoute } from '@/routes/HomeRoute';
 import { HowToPlayRoute } from '@/routes/HowToPlayRoute';
 import { NewSoloGameRoute } from '@/routes/NewSoloGameRoute';
+import { ProfileRoute } from '@/routes/ProfileRoute';
 import { SoloGameRoute } from '@/routes/SoloGameRoute';
 import { useAuth } from '@/hooks/useAuth';
 import { useWordDictionary } from '@/hooks/useWordDictionary';
@@ -46,13 +47,14 @@ function AppProviders() {
   return (
     <Routes>
       <Route element={<AppShell />}>
-        <Route path="/" element={<HomeRoute />} />
+        <Route path="/" element={<HomeRoute user={auth.user} />} />
         <Route
           path="/bermain"
           element={<NewSoloGameRoute user={auth.user} />}
         />
         <Route path="/bermain/:gameId" element={<SoloGameRoute />} />
         <Route path="/cara-bermain" element={<HowToPlayRoute />} />
+        <Route path="/profil" element={<ProfileRoute user={auth.user} />} />
         <Route path="/permainan" element={<Navigate to="/bermain" replace />} />
         <Route path="/permainan/:gameId" element={<LegacyGameRedirect />} />
         <Route path="*" element={<Navigate to="/" replace />} />

@@ -12,6 +12,7 @@ import {
 import {
   doc,
   getDoc,
+  onSnapshot,
   serverTimestamp,
   setDoc,
   updateDoc
@@ -33,6 +34,22 @@ export async function ensureAnonymousUser(): Promise<User> {
 
   await ensureUserProfile(user);
   return user;
+}
+
+export function subscribeToUserProfile(
+  uid: string,
+  onChange: (profile: UserProfile | null) => void,
+  onError: (error: Error) => void
+): Unsubscribe {
+  const { db } = getFirebaseServices();
+
+  return onSnapshot(
+    doc(db, 'users', uid),
+    (snapshot) => {
+      onChange(snapshot.exists() ? (snapshot.data() as UserProfile) : null);
+    },
+    onError
+  );
 }
 
 export async function ensureUserProfile(user: User): Promise<void> {

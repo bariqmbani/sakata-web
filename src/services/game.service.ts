@@ -1,10 +1,13 @@
 import {
   Timestamp,
+  collection,
   doc,
   getDoc,
   onSnapshot,
+  query,
   setDoc,
   updateDoc,
+  where,
   type Unsubscribe
 } from 'firebase/firestore';
 
@@ -83,6 +86,27 @@ export function subscribeToSoloGame(
   );
 }
 
+export function subscribeToUserSoloGames(
+  uid: string,
+  onChange: (games: GameDraft[]) => void,
+  onError: (error: Error) => void
+): Unsubscribe {
+  const { db } = getFirebaseServices();
+  const gamesQuery = query(collection(db, 'games'), where('uid', '==', uid));
+
+  return onSnapshot(
+    gamesQuery,
+    (snapshot) => {
+      const games = snapshot.docs
+        .map((gameSnapshot) => toGameDraft(gameSnapshot.data() as SoloGame))
+        .sort((first, second) => second.startedAtMs - first.startedAtMs);
+
+      onChange(games);
+    },
+    onError
+  );
+}
+
 export async function getSoloGame(gameId: string): Promise<GameDraft | null> {
   const { db } = getFirebaseServices();
   const snapshot = await getDoc(doc(db, 'games', gameId));
@@ -133,8 +157,15 @@ export async function finishSoloGame(game: GameDraft): Promise<void> {
     updatedAt: now
   });
 
-  const playtimeSeconds = Math.round((now.toMillis() - game.startedAtMs) / 1000);
-  logGameComplete(report.score, report.accuracy, report.performance, playtimeSeconds);
+  const playtimeSeconds = Math.round(
+    (now.toMillis() - game.startedAtMs) / 1000
+  );
+  logGameComplete(
+    report.score,
+    report.accuracy,
+    report.performance,
+    playtimeSeconds
+  );
 }
 
 function toGameDraft(game: SoloGame): GameDraft {
@@ -143,6 +174,9 @@ function toGameDraft(game: SoloGame): GameDraft {
     uid: game.uid,
     settings: game.settings,
     answers: game.answers,
+    score: game.score,
+    accuracy: game.accuracy,
+    performance: game.performance,
     startedAtMs: game.startedAt.toMillis(),
     finishedAtMs: game.finishedAt?.toMillis() ?? null
   };

@@ -22,6 +22,9 @@ function makeGame(answers: GameAnswer[], duration = 60): GameDraft {
     uid: 'uid',
     settings: { duration: duration as 30 | 60 | 90, allowSkip: true },
     answers,
+    score: 0,
+    accuracy: 0,
+    performance: 'kurang',
     startedAtMs: 0,
     finishedAtMs: null
   };

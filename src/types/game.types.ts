@@ -35,6 +35,9 @@ export type GameDraft = {
   uid: string;
   settings: GameSettings;
   answers: GameAnswer[];
+  score: number;
+  accuracy: number;
+  performance: string;
   startedAtMs: number;
   finishedAtMs: number | null;
 };
