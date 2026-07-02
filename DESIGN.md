@@ -1,42 +1,87 @@
 # DESIGN.md — Sa-Kata UI/UX Design System
 
 ## Overview
-Sa-Kata utilizes a **Retro 8-bit (NES) Aesthetic**. The design aims to replicate classic 8-bit video games, ensuring a nostalgic, playful, and highly readable interface. The rewrite abandons generic modern Neo-Brutalism in favor of an authentic pixel-art approach, heavily inspired by the original project's usage of `NES.css`.
 
-## Core Elements
+Sa-Kata uses the Figma mobile-first UI direction from **Sa-Kata Mobile-First UI/UX Design**. The experience should feel cheerful, quick, and game-like without returning to the old square NES.css/pixel treatment.
 
-### 1. Typography
-- **Primary Font**: `Press Start 2P` [Google Fonts](https://fonts.google.com/specimen/Press+Start+2P).
-- **Fallback Fonts**: `ui-monospace, SFMono-Regular, monospace`.
-- **Characteristics**: Blocky, all-caps feeling even in lowercase, requires generous line spacing for readability.
+The source of truth is a centered mobile shell: design for 390px-wide screens first, support small mobile around 360px, and keep the gameplay panel capped around 430px on desktop.
 
-### 2. Colors
-- **Background (App)**: Off-white/light gray (`#f4f7f8`) for containers, pure black (`#09090b`) for the absolute background wrapper to frame the app.
-- **Text (Primary)**: Off-black (`#18181b`).
-- **Accent/Highlight**: Yellow-gold (`#a16207` or `rgb(143, 143, 23)`). Used for focus rings and highlighting the last syllable.
-- **Error/Danger**: Red-orange (`#e76e54`). Used for wrong answers and alerts.
+## Foundations
 
-### 3. UI Components & Shapes
+### Typography
 
-#### Pixel Boxes & Buttons
-- **Containers (`.pixel-box`)**: Use `clip-path` to simulate jagged, pixelated corners with white backgrounds and black borders.
-- **Buttons (`.pixel-btn`)**: Use a system of multiple `inset` and outer `box-shadows` to create a 3D pressed effect. The background and borders are drawn entirely using shadows to avoid border-rendering artifacts common in standard CSS. There is a distinct visual change on `:active` where the inset shadow reverses to mimic a physical button press.
+- Primary font: `Inter`.
+- Display title: 46/52, extra bold.
+- Page title: 28/34, extra bold.
+- Game word: 38/44, extra bold.
+- Required syllable: 34/40, extra bold.
+- Timer/status value: 30/34 or compact 24/28, extra bold.
+- Body: 15/22, regular or medium.
+- Button text: 16/20, bold.
 
-#### Forms & Inputs
-- **Text Inputs**: Utilize `box-shadow` to create a sunken 3D pixel border (similar to `.pixel-btn` but inverted). 
-- **Radio Buttons**: Avoid modern CSS circles or generic boxes. Instead, use a visual `►` character indicator next to the label to denote selection, vertically stacked, matching the classic RPG menu aesthetic.
-- **Autofocus**: Game loop text inputs must aggressively regain focus after submission (via `setTimeout`) to allow continuous, rapid gameplay without re-tapping the input.
+### Color Tokens
 
-#### Tooltips (`.retro-tooltip`)
-- **Appearance**: Solid black background with white text. Pixelated corners.
-- **Pointer**: A blocky, CSS-drawn arrow pointing to the referenced text using the `::after` pseudo-element.
-- **Interaction**: Must support `:hover` for desktop. Crucially, trigger elements on mobile **must** include `tabIndex={0}` so they become focusable, allowing `:focus-within` to display the tooltip on tap.
+- `background`: `#FFF6D8`
+- `background-soft`: `#FFE8A6`
+- `surface`: `#FFFFFF`
+- `surface-raised`: `#FFFDF4`
+- `primary`: `#FF5C38`
+- `primary-pressed`: `#D9472D`
+- `secondary`: `#20BFA9`
+- `accent`: `#FFB703`
+- `success`: `#1FA66A`
+- `warning`: `#F59E0B`
+- `error`: `#E5484D`
+- `text-primary`: `#24222B`
+- `text-secondary`: `#6F6575`
+- `text-inverse`: `#FFFFFF`
+- `border`: `#F0D38B`
+- `disabled`: `#CFC7B8`
 
-### 4. Animations & Micro-interactions
-- **Error Shake**: When an invalid word is submitted, the input field executes a rapid `horizontal-shaking` animation (shifting left and right by 3px) for `0.3s`.
-- **Alert Fade**: Error alerts entering the screen use a quick fade-in animation.
+## Components
 
-### 5. Spacing & Layout
-- Layouts are primarily centered and single-column (max-width `720px`).
-- Form layouts (like settings) favor vertically stacked lists (e.g., `flex-col`) over horizontal grids to preserve the retro menu feel.
-- Margins and paddings use coarse, absolute values (e.g., `4px`, `8px`, `16px`) to align with a perceived low-resolution grid.
+- App shell: centered, max width about `430px`, warm background, rounded desktop frame, soft decorative circles.
+- Buttons: rounded `18px`, 1px border, subtle warm shadow, clear primary/secondary/soft/danger/disabled states.
+- Cards: rounded `18–28px`, `border` token, white or raised surface, warm shadow.
+- Chips: rounded full pills for syllables, chain history, badges, and required syllable.
+- Status cards: compact cards for `Waktu`, `Skor`, and `Kombo`.
+- Active game keyboard: fixed/sticky bottom game keyboard, not a focused native input during normal play.
+- Feedback banners: success/error rounded banners with a colored dot and short Indonesian copy.
+- Focus: visible blue focus ring (`#3A86FF`) on all interactive controls.
+
+## Layout
+
+- Mobile screen padding: `20–28px`.
+- Card padding: `18–24px`.
+- Section gap: `24–32px`.
+- Button gap: `12–16px`.
+- Chip gap: `8px`.
+- Keyboard gap: `4–8px`.
+- Safe area: include `env(safe-area-inset-bottom)` for keyboard bottom padding.
+- Desktop: do not expand gameplay into a dashboard; center the mobile shell.
+
+## Interaction
+
+- Custom keyboard:
+  - Letter buttons append letters.
+  - `Hapus` removes one letter but preserves the required-syllable prefill.
+  - `Kosong` resets the answer to the required syllable.
+  - `Kirim` submits.
+  - `Lewati` submits an auto-generated skip word when skip is enabled.
+- Hardware keyboard:
+  - Letter keys append.
+  - `Enter` submits.
+  - `Backspace` deletes one letter after the required syllable.
+  - `Esc` resets to the required syllable.
+- Motion:
+  - Invalid answer shake.
+  - Feedback pop/fade under 180ms.
+  - Low timer pulse.
+  - Respect `prefers-reduced-motion`.
+
+## Copy
+
+- UI text is Indonesian.
+- Empty history: `Belum ada riwayat permainan. Mainkan satu ronde untuk melihat progresmu.`
+- Loading: `Menyiapkan kata...`
+- Generic error: `Ada masalah. Coba lagi.`

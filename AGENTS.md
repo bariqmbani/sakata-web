@@ -24,8 +24,8 @@ This file is the project entrypoint for future agents. Keep it as the concise ma
 
 Current understanding:
 
-- The app is a retro 8-bit/NES-style Indonesian word-chain game.
-- Phase 1 solo mode is implemented with anonymous auth, Firestore-persisted solo games, local dictionary data, analytics, and profile/history surfaces.
+- The app is a cheerful Figma-led, mobile-first Indonesian word-chain game with a centered 390–430px gameplay shell, Inter typography, warm rounded cards, and a custom in-game keyboard.
+- Phase 1 solo mode is implemented with anonymous auth, Firestore-persisted solo games, local dictionary data, analytics, profile/history surfaces, and the Figma mobile-first UI system.
 - The home screen should remain a clean title menu. Do not add dashboard-style panels there. Player stats and game history belong in `/profil`; the home screen may show `Lanjutkan Permainan` only when an unfinished game exists.
 - `Papan Peringkat` is intentionally visible as a future feature but disabled/marked `Segera` until leaderboard rules, data visibility, and security rules are designed.
 - Multiplayer, persistent sign-in, account linking, leaderboard, and anti-cheat hardening are roadmap work.
@@ -41,7 +41,7 @@ When a task involves product behavior, UI copy, information architecture, route 
 | Framework    | React 19 + Vite                      | Client-side SPA, no SSR needed                                                    |
 | Language     | TypeScript (strict)                  |                                                                                   |
 | Routing      | React Router v7 (or TanStack Router) | Client-side routing only                                                          |
-| Styling      | Tailwind CSS v4                      | Replaces SASS + NES.css from legacy app                                           |
+| Styling      | Tailwind CSS v4                      | Figma token/component system; replaces SASS + NES.css from legacy app             |
 | Database     | Firebase Firestore                   | Real-time listeners for game state sync                                           |
 | Presence     | Firebase Realtime Database           | Player online/offline/disconnect detection                                        |
 | Auth         | Firebase Authentication              | Anonymous auth for quick play, Google for persistent profiles                     |
@@ -361,7 +361,7 @@ For solo mode, anonymous auth is sufficient. For multiplayer, encourage (but don
 - No custom CSS files unless absolutely necessary.
 - Use Tailwind utility classes directly in JSX.
 - Extract repeated patterns into components, not CSS classes.
-- If the retro pixel aesthetic from NES.css is desired, consider a Tailwind plugin or a small set of custom utilities in `tailwind.config.ts` — do not import NES.css.
+- Keep styling aligned with `DESIGN.md`: Inter typography, warm Figma tokens, rounded cards/buttons/chips, and a centered mobile-first shell. Do not import NES.css or restore the old square pixel helper system.
 
 ### File Naming
 

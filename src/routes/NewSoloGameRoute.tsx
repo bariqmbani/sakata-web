@@ -1,6 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { ArrowLeft } from 'lucide-react';
-import { Link, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import type { User } from 'firebase/auth';
 
 import {
@@ -9,7 +8,9 @@ import {
   GAME_DURATIONS
 } from '@/constants/game';
 import { Button } from '@/components/ui/Button';
+import { PageHeader } from '@/components/layout/PageHeader';
 import { RadioCard } from '@/components/ui/RadioCard';
+import { ToggleSwitch } from '@/components/ui/ToggleSwitch';
 import { createSoloGame } from '@/services/game.service';
 import type { GameSettings } from '@/types/game.types';
 
@@ -51,24 +52,39 @@ export function NewSoloGameRoute({ user }: NewSoloGameRouteProps) {
 
   return (
     <div className="flex flex-1 flex-col">
-      <header className="flex min-h-16 items-center gap-3 text-xl font-bold">
-        <Link
-          aria-label="Kembali"
-          className="focus-ring inline-flex h-10 w-10 items-center justify-center"
-          to="/"
-        >
-          <ArrowLeft size={28} />
-        </Link>
-        <span>Aturan Bermain</span>
-      </header>
+      <PageHeader title="Mulai Permainan" />
       <form
-        className="mt-4 space-y-10"
+        className="flex flex-1 flex-col px-7 pb-10 pt-9"
         onSubmit={(event) => void onSubmit(event)}
       >
-        <section>
-          <h2 className="mb-4 text-lg font-bold underline">Durasi Permainan</h2>
-          <div className="flex flex-col gap-3">
-            {GAME_DURATIONS.map((duration) => (
+        <div>
+          <h2 className="text-[25px] font-extrabold leading-[31px] text-text-primary">
+            Pilih durasi ronde
+          </h2>
+          <p className="mt-1 text-[15px] font-medium leading-[22px] text-text-secondary">
+            Main singkat, kejar skor terbaikmu.
+          </p>
+        </div>
+
+        <section className="mt-9 rounded-[24px] border border-border bg-surface-raised p-5 shadow-[0_4px_5px_rgba(139,94,0,0.14)]">
+          <h3 className="text-sm font-bold leading-[18px] text-text-secondary">
+            Durasi
+          </h3>
+          <div className="mt-4 grid grid-cols-2 gap-2">
+            <RadioCard
+              checked={settings.duration === GAME_DURATIONS[0]}
+              className="col-span-2"
+              label={`${GAME_DURATIONS[0]} detik`}
+              name="duration"
+              onChange={() =>
+                setSettings((current) => ({
+                  ...current,
+                  duration: GAME_DURATIONS[0]
+                }))
+              }
+              value={GAME_DURATIONS[0]}
+            />
+            {GAME_DURATIONS.slice(1).map((duration) => (
               <RadioCard
                 checked={settings.duration === duration}
                 key={duration}
@@ -85,43 +101,51 @@ export function NewSoloGameRoute({ user }: NewSoloGameRouteProps) {
             ))}
           </div>
         </section>
-        <section>
-          <h2 className="mb-4 text-lg font-bold underline">
-            Dapat Melewati Kata
-          </h2>
-          <div className="flex flex-col gap-3">
-            <RadioCard
-              checked={settings.allowSkip}
-              label="Ya"
-              name="allowSkip"
-              onChange={() =>
-                setSettings((current) => ({ ...current, allowSkip: true }))
-              }
-              value="yes"
-            />
-            <RadioCard
-              checked={!settings.allowSkip}
-              label="Tidak"
-              name="allowSkip"
-              onChange={() =>
-                setSettings((current) => ({ ...current, allowSkip: false }))
-              }
-              value="no"
-            />
+
+        <section className="mt-8 flex min-h-[126px] items-center justify-between gap-5 rounded-[24px] border border-border bg-surface px-5 py-5 shadow-[0_4px_5px_rgba(139,94,0,0.14)]">
+          <div>
+            <h3 className="text-[17px] font-bold leading-[22px] text-text-primary">
+              Izinkan Lewati Kata
+            </h3>
+            <p className="mt-2 text-[13px] font-medium leading-[18px] text-text-secondary">
+              Aktifkan jika kamu ingin bisa melewati kata yang sulit.
+            </p>
           </div>
+          <ToggleSwitch
+            checked={settings.allowSkip}
+            label="Izinkan lewati kata"
+            onClick={() =>
+              setSettings((current) => ({
+                ...current,
+                allowSkip: !current.allowSkip
+              }))
+            }
+          />
         </section>
+
         {error && (
-          <p className="border-[3px] border-[#e76e54] bg-white p-4 text-sm text-[#9a3412]">
+          <p className="mt-6 rounded-[16px] border border-[#ffc1b4] bg-[#ffe2d9] p-4 text-sm font-bold leading-5 text-primary-pressed">
             {error}
           </p>
         )}
-        <Button
-          className="w-full sm:w-auto"
-          disabled={isSubmitting}
-          type="submit"
-        >
-          {isSubmitting ? 'Memulai...' : 'Mulai'}
-        </Button>
+
+        <div className="mt-auto space-y-4 pt-10">
+          <Button
+            className="min-h-[60px] w-full"
+            disabled={isSubmitting}
+            type="submit"
+          >
+            {isSubmitting ? 'Memulai...' : 'Mulai'}
+          </Button>
+          <Button
+            className="w-full"
+            onClick={() => void navigate('/')}
+            type="button"
+            variant="soft"
+          >
+            Kembali
+          </Button>
+        </div>
       </form>
     </div>
   );

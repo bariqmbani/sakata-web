@@ -1,13 +1,13 @@
 ---
 name: sakata-product-domain
-description: "Product and game-domain guidance for Sa-Kata, an Indonesian word-chain game. Use when Codex needs to make or review product decisions, Indonesian UI copy, menu/profile/history content, game rules, UX scope, roadmap priorities, leaderboard/multiplayer behavior, or terminology such as syllables, consonant digraphs, and diphthongs."
+description: 'Product and game-domain guidance for Sa-Kata, an Indonesian word-chain game. Use when Codex needs to make or review product decisions, Indonesian UI copy, menu/profile/history content, game rules, UX scope, roadmap priorities, leaderboard/multiplayer behavior, or terminology such as syllables, consonant digraphs, and diphthongs.'
 ---
 
 # Sa-Kata Product Domain
 
 ## Quick Start
 
-Use this skill to keep product decisions aligned with Sa-Kata's identity: a focused Indonesian word-chain game with a retro 8-bit/NES presentation.
+Use this skill to keep product decisions aligned with Sa-Kata's identity: a focused Indonesian word-chain game with a cheerful Figma-led, mobile-first presentation.
 
 Before making product changes:
 

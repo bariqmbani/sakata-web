@@ -1,14 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 @import 'tailwindcss';
 
 @theme {
-  --font-sans: 'Press Start 2P', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --color-background: #fff6d8;
+  --color-background-soft: #ffe8a6;
+  --color-surface: #ffffff;
+  --color-surface-raised: #fffdf4;
+  --color-primary: #ff5c38;
+  --color-primary-pressed: #d9472d;
+  --color-secondary: #20bfa9;
+  --color-accent: #ffb703;
+  --color-success: #1fa66a;
+  --color-warning: #f59e0b;
+  --color-error: #e5484d;
+  --color-text-primary: #24222b;
+  --color-text-secondary: #6f6575;
+  --color-text-inverse: #ffffff;
+  --color-border: #f0d38b;
+  --color-disabled: #cfc7b8;
 }
 
 :root {
-  color: #18181b;
-  background: #09090b;
-  font-family: 'Press Start 2P', ui-monospace, SFMono-Regular, monospace, system-ui, sans-serif;
+  color: #24222b;
+  background: #e5e7eb;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -23,7 +39,6 @@ body,
 
 body {
   margin: 0;
-  /* For retro aesthetic, avoid smooth scrolling */
   scroll-behavior: auto;
 }
 
@@ -32,88 +47,79 @@ input {
   font: inherit;
 }
 
-/* NES-style Pixel Borders */
-.pixel-box {
-  border-style: solid;
-  border-width: 4px;
-  border-color: rgb(24, 24, 27);
-  border-radius: 0;
-  clip-path: polygon(
-    0px 4px, 4px 4px, 4px 0px,
-    calc(100% - 4px) 0px, calc(100% - 4px) 4px, 100% 4px,
-    100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%,
-    4px 100%, 4px calc(100% - 4px), 0px calc(100% - 4px)
-  );
-}
-
-.panel {
-  border-style: solid;
-  border-width: 4px;
-  border-color: rgb(24, 24, 27);
-  border-radius: 0;
-  background: #f4f7f8;
-  padding: 1.5rem;
-}
-
-/* NES-style 3D Button */
-.pixel-btn {
-  border-style: solid;
-  border-width: 4px;
-  border-color: rgb(24, 24, 27);
-  border-radius: 0;
-  clip-path: polygon(
-    0px 4px, 4px 4px, 4px 0px,
-    calc(100% - 4px) 0px, calc(100% - 4px) 4px, 100% 4px,
-    100% calc(100% - 4px), calc(100% - 4px) calc(100% - 4px), calc(100% - 4px) 100%,
-    4px 100%, 4px calc(100% - 4px), 0px calc(100% - 4px)
-  );
-  background-color: #fff;
-  color: #212529;
-  box-shadow: inset -4px -4px #adafbc;
-  transition: none;
-}
-
-.pixel-btn:hover:not(:disabled) {
-  background-color: #e7e7e7;
-  box-shadow: inset -6px -6px #adafbc;
-}
-
-.pixel-btn:active:not(:disabled) {
-  box-shadow: inset 4px 4px #adafbc;
-}
-
-.pixel-btn:disabled {
-  background-color: #d3d3d3;
-  color: #212529;
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
 .focus-ring {
   outline: 3px solid transparent;
   outline-offset: 3px;
 }
 
 .focus-ring:focus-visible {
-  outline-color: #a16207;
+  outline-color: #3a86ff;
 }
 
-/* Invalid Word Animation */
 @keyframes horizontal-shaking {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(4px); }
-  50% { transform: translateX(-4px); }
-  75% { transform: translateX(4px); }
-  100% { transform: translateX(0); }
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(4px);
+  }
+  50% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 .animate-shake {
   animation: horizontal-shaking 0.3s ease-in-out;
-  border-color: #e76e54 !important;
-  color: #e76e54 !important;
+  border-color: #e5484d !important;
+  color: #d9472d !important;
 }
 
-/* Retro Tooltip */
+@keyframes feedback-pop {
+  0% {
+    transform: scale(0.98);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-feedback-pop {
+  animation: feedback-pop 0.16s ease-out;
+}
+
+@keyframes low-time-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.62;
+  }
+}
+
+.animate-low-time {
+  animation: low-time-pulse 0.9s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 .retro-tooltip {
   position: relative;
   display: inline-block;
@@ -135,9 +141,8 @@ input {
   font-size: 0.75rem;
 }
 
-/* Retro Tooltip Arrow */
 .retro-tooltip .tooltip-text::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 100%;
   left: 50%;

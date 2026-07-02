@@ -5,7 +5,7 @@
 - React 19 + Vite SPA.
 - TypeScript strict mode with `noUncheckedIndexedAccess`.
 - React Router v7 for client routes.
-- Tailwind CSS v4 plus small retro utilities in `src/styles.css`.
+- Tailwind CSS v4 plus Figma design tokens, rounded UI primitives, and motion helpers in `src/styles.css`.
 - Firebase Auth, Firestore, Realtime Database, and optional Analytics.
 - Vitest and Testing Library for tests.
 - `lucide-react` for icons.
@@ -19,7 +19,7 @@ No SSR, Remix, Express, SASS, NES.css import, or Node server should be added.
 - `src/routes/ProfileRoute.tsx` shows profile, derived stats, and finished solo-game history.
 - `src/routes/NewSoloGameRoute.tsx` creates solo games with settings.
 - `src/routes/SoloGameRoute.tsx` runs the active solo session.
-- `src/components/ui` contains generic retro controls; `src/components/game` contains game-specific pieces.
+- `src/components/ui` contains generic Figma-aligned controls; `src/components/game` contains game-specific pieces including the custom keyboard and active-game cards.
 
 ## Firebase Data Flow
 
@@ -49,7 +49,8 @@ Do not copy syllable logic into this repo. If syllable parsing needs changes, ch
 - Avoid `useEffect` for derived state; use inline computation or `useMemo`.
 - Keep home menu uncluttered. Profile/history data belongs in `/profil`.
 - Use Indonesian UI copy and English internal code/docs.
-- Use existing retro helpers (`pixel-btn`, `pixel-box`, `panel`, `focus-ring`) before adding new CSS.
+- Use the Figma token/component system in `DESIGN.md`; keep shared UI in `src/components/ui` and game-specific surfaces in `src/components/game`.
+- Active solo play uses a custom button keyboard with hardware-key support; preserve the required-syllable prefill behavior.
 
 ## Security and Future Backend Work
 

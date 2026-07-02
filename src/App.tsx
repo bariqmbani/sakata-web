@@ -36,9 +36,15 @@ function AppProviders() {
   if (error) {
     return (
       <AppShell>
-        <div className="panel text-center">
-          <h1 className="text-2xl font-bold">Terjadi Kesalahan</h1>
-          <p className="mt-4 text-sm leading-6 text-zinc-700">{error}</p>
+        <div className="flex flex-1 items-center justify-center p-7">
+          <div className="rounded-[24px] border border-[#ffc1b4] bg-[#ffe2d9] p-6 text-center shadow-[0_4px_5px_rgba(139,94,0,0.14)]">
+            <h1 className="text-2xl font-extrabold leading-8">
+              Terjadi Kesalahan
+            </h1>
+            <p className="mt-4 text-sm font-bold leading-6 text-primary-pressed">
+              {error}
+            </p>
+          </div>
         </div>
       </AppShell>
     );

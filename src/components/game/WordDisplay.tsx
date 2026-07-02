@@ -6,13 +6,13 @@ export function WordDisplay({ syllables }: WordDisplayProps) {
   const lastIndex = syllables.length - 1;
 
   return (
-    <div className="flex flex-wrap items-end justify-center gap-1 text-2xl font-bold sm:text-3xl">
+    <div className="flex flex-wrap items-center justify-center gap-3">
       {syllables.map((syllable, index) => (
         <span
           className={
             index === lastIndex
-              ? 'border-b-4 border-dotted border-amber-700 pb-1 text-amber-700'
-              : undefined
+              ? 'rounded-full border border-[#ddba5e] bg-accent px-5 py-2 text-sm font-bold leading-[18px] text-text-primary'
+              : 'rounded-full border border-[#ffc1b4] bg-[#ffe2d9] px-5 py-2 text-sm font-bold leading-[18px] text-text-primary'
           }
           key={`${syllable}-${index}`}
         >

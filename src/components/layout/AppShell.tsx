@@ -7,10 +7,28 @@ type AppShellProps = {
 
 export function AppShell({ children }: AppShellProps) {
   return (
-    <main className="min-h-screen bg-zinc-950 px-4 py-6 text-zinc-950 sm:py-8">
-      <div className="mx-auto flex min-h-[calc(100vh-3rem)] w-full max-w-3xl flex-col overflow-hidden bg-[#dee4e7] p-5 sm:min-h-[calc(100vh-4rem)] sm:p-8">
-        {children ?? <Outlet />}
+    <main className="min-h-screen bg-zinc-200 px-0 py-0 text-text-primary sm:px-5 sm:py-6">
+      <div className="mx-auto flex min-h-screen w-full max-w-[430px] flex-col overflow-hidden bg-background shadow-[0_18px_38px_rgba(139,94,0,0.22)] sm:min-h-[844px] sm:rounded-[28px] sm:border sm:border-white/75">
+        <div className="relative isolate flex min-h-screen flex-1 flex-col overflow-hidden sm:min-h-[844px]">
+          <DecorativeShapes />
+          <div className="relative z-10 flex min-h-0 flex-1 flex-col">
+            {children ?? <Outlet />}
+          </div>
+        </div>
       </div>
     </main>
+  );
+}
+
+function DecorativeShapes() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 z-0"
+    >
+      <div className="absolute -left-20 -top-[4.5rem] h-48 w-60 rounded-full bg-accent/35" />
+      <div className="absolute -right-20 top-[4.5rem] h-40 w-40 rounded-full bg-primary/22" />
+      <div className="absolute -bottom-10 -left-14 h-44 w-48 rounded-full bg-secondary/18" />
+    </div>
   );
 }

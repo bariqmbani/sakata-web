@@ -8,7 +8,7 @@ Sa-Kata is an Indonesian word-chain game. Players continue a chain by entering a
 ma-kan -> kan-di-dat -> da-ta -> ta-ri
 ```
 
-The experience should feel like a compact retro 8-bit/NES game: direct, playful, readable, and menu-driven. Avoid turning the app into a generic productivity dashboard.
+The experience should feel like a compact, cheerful, mobile-first word game: direct, playful, readable, and menu-driven. Avoid turning the app into a generic productivity dashboard.
 
 ## Current Product State
 
@@ -45,7 +45,7 @@ Do not place passive profile cards, recent-history panels, long instructions, pr
 
 - All user-facing UI text must be Indonesian.
 - Code, comments, and internal docs may be English.
-- Use concise labels that fit pixel-font constraints.
+- Use concise labels that fit the compact mobile shell and rounded button system.
 - Prefer `Mulai Permainan`, `Lanjutkan Permainan`, `Cara Bermain`, `Profil`, `Papan Peringkat`, and `Segera` for the main menu family.
 - Use "suku kata" for syllable in UI copy.
 - Use "consonant digraph" in technical/docs language for `ng`, `ny`, `sy`, `kh`; do not call them diphthongs.
@@ -67,7 +67,7 @@ Do:
 
 - Preserve the fast game loop.
 - Keep first-screen choices few and obvious.
-- Use retro menu patterns and compact panels.
+- Use compact menu patterns, rounded cards, and Figma-aligned controls.
 - Make empty states short and actionable.
 - Add progression content only when it reinforces replay, not when it distracts from starting a game.
 - Treat alpha/future features honestly with `Segera` or hidden routes.
