@@ -226,7 +226,7 @@ export function SoloGameRoute() {
     <div className="relative flex h-[100dvh] min-h-0 w-full flex-none flex-col overflow-hidden sm:h-[844px]">
       {isFinished && <GameOverModal game={game} />}
       <section className="flex min-h-0 flex-1 flex-col overflow-hidden px-5 pt-5">
-        <div className="min-h-0 flex-1 overflow-y-auto pb-3">
+        <div className="min-h-0 flex-1 overflow-hidden pb-1">
           <GameStatusBar
             combo={combo}
             remaining={remaining}
