@@ -5,8 +5,8 @@ type FirebaseSetupProps = {
 export function FirebaseSetup({ missingKeys }: FirebaseSetupProps) {
   return (
     <main className="min-h-screen bg-zinc-200 px-4 py-8 text-text-primary">
-      <div className="mx-auto max-w-[430px] rounded-[28px] border border-white/75 bg-background p-6 shadow-[0_18px_38px_rgba(139,94,0,0.22)]">
-        <div className="rounded-[24px] border border-border bg-surface p-6 shadow-[0_4px_5px_rgba(139,94,0,0.14)]">
+      <div className="mx-auto max-w-[430px] rounded-panel border border-white/75 bg-background p-6 shadow-shell">
+        <div className="rounded-card border border-border bg-surface p-6 shadow-warm-sm">
           <h1 className="text-2xl font-extrabold leading-8">
             Konfigurasi Firebase Dibutuhkan
           </h1>
@@ -17,7 +17,7 @@ export function FirebaseSetup({ missingKeys }: FirebaseSetupProps) {
           <ul className="mt-5 space-y-2 text-sm font-bold">
             {missingKeys.map((key) => (
               <li
-                className="rounded-[14px] border border-border bg-surface-raised px-3 py-2"
+                className="rounded-2xl border border-border bg-surface-raised px-3 py-2"
                 key={key}
               >
                 <code>{key}</code>

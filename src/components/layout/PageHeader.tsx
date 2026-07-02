@@ -7,10 +7,10 @@ type PageHeaderProps = {
 
 export function PageHeader({ title, backTo = '/' }: PageHeaderProps) {
   return (
-    <header className="grid min-h-[70px] grid-cols-[92px_1fr_92px] items-center px-5 pt-5">
+    <header className="grid min-h-20 grid-cols-[6rem_1fr_6rem] items-center px-5 pt-5">
       <Link
         aria-label="Kembali"
-        className="focus-ring inline-flex h-[42px] w-[92px] items-center justify-center rounded-[18px] border border-border bg-[#fff2c7] text-base font-bold text-text-primary shadow-[0_4px_5px_rgba(139,94,0,0.14)]"
+        className="focus-ring inline-flex min-h-11 w-24 items-center justify-center rounded-control border border-border bg-surface-soft text-base font-bold text-text-primary shadow-warm-sm"
         to={backTo}
       >
         Kembali

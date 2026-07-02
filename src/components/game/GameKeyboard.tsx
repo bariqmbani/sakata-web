@@ -26,7 +26,7 @@ export function GameKeyboard({
   onSubmit
 }: GameKeyboardProps) {
   return (
-    <section className="rounded-t-[24px] border border-[#ddba5e] bg-[#fff0bd] px-3 pb-[calc(env(safe-area-inset-bottom)+18px)] pt-4 shadow-[0_8px_9px_rgba(139,94,0,0.18)]">
+    <section className="rounded-t-card border border-border-strong bg-background-soft px-3 pb-[calc(env(safe-area-inset-bottom)+1rem)] pt-4 shadow-warm-lg">
       <KeyboardRow>
         {KEY_ROWS[0].map((letter) => (
           <KeyboardKey
@@ -71,7 +71,7 @@ export function GameKeyboard({
           wide
         />
       </KeyboardRow>
-      <div className="mt-2 grid grid-cols-[100px_1fr] gap-2">
+      <div className="mt-2 grid grid-cols-[4rem_1fr] gap-2">
         <KeyboardKey
           disabled={disabled || !allowSkip}
           label="Lewati"
@@ -79,7 +79,7 @@ export function GameKeyboard({
           tone="secondary"
           wide
         />
-        <div className="flex min-h-11 items-center justify-center rounded-[14px] border border-border bg-surface px-3 text-center text-[13px] font-semibold leading-[18px] text-text-secondary">
+        <div className="flex min-h-11 items-center justify-center rounded-2xl border border-border bg-surface px-3 text-center text-caption font-semibold text-text-secondary">
           {helper}
         </div>
       </div>
@@ -114,10 +114,11 @@ function KeyboardKey({
   wide = false
 }: KeyboardKeyProps) {
   const toneClass = {
-    default: 'border-[#ebcb78] bg-surface text-text-primary',
+    default: 'border-border bg-surface text-text-primary',
     primary: 'border-primary-pressed bg-primary text-text-inverse',
-    secondary: 'border-[#91e6d8] bg-[#e8fffa] text-[#087f72]',
-    danger: 'border-[#ffc1b4] bg-[#ffe2d9] text-primary-pressed'
+    secondary:
+      'border-secondary-border-soft bg-secondary-soft text-secondary-strong',
+    danger: 'border-primary-border-soft bg-primary-soft text-primary-pressed'
   }[tone];
 
   return (
@@ -125,8 +126,8 @@ function KeyboardKey({
       aria-label={
         label.length === 1 ? `Tombol huruf ${label}` : `${label} jawaban`
       }
-      className={`focus-ring flex h-[42px] shrink-0 items-center justify-center rounded-xl border text-center text-sm font-bold leading-[18px] shadow-[0_4px_5px_rgba(139,94,0,0.14)] disabled:cursor-not-allowed disabled:opacity-55 ${
-        wide ? 'w-[58px] text-[13px]' : 'min-w-0 flex-1'
+      className={`focus-ring flex h-11 shrink-0 items-center justify-center rounded-xl border text-center text-sm font-bold leading-5 shadow-warm-sm disabled:cursor-not-allowed disabled:opacity-60 ${
+        wide ? 'w-16 text-caption' : 'min-w-0 flex-1'
       } ${toneClass}`}
       disabled={disabled}
       onClick={onClick}

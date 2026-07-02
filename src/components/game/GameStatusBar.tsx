@@ -23,16 +23,14 @@ type StatusCardProps = {
 function StatusCard({ label, tone, value }: StatusCardProps) {
   const toneClass = {
     time: 'text-primary',
-    score: 'text-[#3a86ff]',
+    score: 'text-focus',
     combo: 'text-success'
   }[tone];
 
   return (
-    <div className="min-h-16 rounded-[18px] border border-border bg-surface px-2 py-2 text-center shadow-[0_4px_5px_rgba(139,94,0,0.14)]">
-      <p className="text-[11px] font-bold leading-[14px] text-text-secondary">
-        {label}
-      </p>
-      <p className={`mt-1 text-2xl font-extrabold leading-7 ${toneClass}`}>
+    <div className="min-h-16 rounded-control border border-border bg-surface px-2 py-2 text-center shadow-warm-sm">
+      <p className="text-xs font-bold leading-4 text-text-secondary">{label}</p>
+      <p className={`mt-1 text-status-value font-extrabold ${toneClass}`}>
         {value}
       </p>
     </div>

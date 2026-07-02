@@ -11,8 +11,8 @@ export function WordDisplay({ syllables }: WordDisplayProps) {
         <span
           className={
             index === lastIndex
-              ? 'rounded-full border border-[#ddba5e] bg-accent px-5 py-2 text-sm font-bold leading-[18px] text-text-primary'
-              : 'rounded-full border border-[#ffc1b4] bg-[#ffe2d9] px-5 py-2 text-sm font-bold leading-[18px] text-text-primary'
+              ? 'max-w-full break-all rounded-full border border-border-strong bg-accent px-5 py-2 text-sm font-bold leading-5 text-text-primary'
+              : 'max-w-full break-all rounded-full border border-primary-border-soft bg-primary-soft px-5 py-2 text-sm font-bold leading-5 text-text-primary'
           }
           key={`${syllable}-${index}`}
         >

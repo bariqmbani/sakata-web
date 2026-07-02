@@ -54,20 +54,20 @@ export function NewSoloGameRoute({ user }: NewSoloGameRouteProps) {
     <div className="flex flex-1 flex-col">
       <PageHeader title="Mulai Permainan" />
       <form
-        className="flex flex-1 flex-col px-7 pb-10 pt-9"
+        className="flex flex-1 flex-col px-7 pb-10 pt-8"
         onSubmit={(event) => void onSubmit(event)}
       >
         <div>
-          <h2 className="text-[25px] font-extrabold leading-[31px] text-text-primary">
+          <h2 className="text-page-title font-extrabold text-text-primary">
             Pilih durasi ronde
           </h2>
-          <p className="mt-1 text-[15px] font-medium leading-[22px] text-text-secondary">
+          <p className="mt-1 text-body-copy font-medium text-text-secondary">
             Main singkat, kejar skor terbaikmu.
           </p>
         </div>
 
-        <section className="mt-9 rounded-[24px] border border-border bg-surface-raised p-5 shadow-[0_4px_5px_rgba(139,94,0,0.14)]">
-          <h3 className="text-sm font-bold leading-[18px] text-text-secondary">
+        <section className="mt-8 rounded-card border border-border bg-surface-raised p-5 shadow-warm-sm">
+          <h3 className="text-sm font-bold leading-5 text-text-secondary">
             Durasi
           </h3>
           <div className="mt-4 grid grid-cols-2 gap-2">
@@ -102,12 +102,12 @@ export function NewSoloGameRoute({ user }: NewSoloGameRouteProps) {
           </div>
         </section>
 
-        <section className="mt-8 flex min-h-[126px] items-center justify-between gap-5 rounded-[24px] border border-border bg-surface px-5 py-5 shadow-[0_4px_5px_rgba(139,94,0,0.14)]">
+        <section className="mt-8 flex min-h-32 items-center justify-between gap-4 rounded-card border border-border bg-surface px-5 py-5 shadow-warm-sm">
           <div>
-            <h3 className="text-[17px] font-bold leading-[22px] text-text-primary">
+            <h3 className="text-base font-bold leading-5 text-text-primary">
               Izinkan Lewati Kata
             </h3>
-            <p className="mt-2 text-[13px] font-medium leading-[18px] text-text-secondary">
+            <p className="mt-2 text-caption font-medium text-text-secondary">
               Aktifkan jika kamu ingin bisa melewati kata yang sulit.
             </p>
           </div>
@@ -124,14 +124,14 @@ export function NewSoloGameRoute({ user }: NewSoloGameRouteProps) {
         </section>
 
         {error && (
-          <p className="mt-6 rounded-[16px] border border-[#ffc1b4] bg-[#ffe2d9] p-4 text-sm font-bold leading-5 text-primary-pressed">
+          <p className="mt-6 rounded-2xl border border-primary-border-soft bg-primary-soft p-4 text-sm font-bold leading-5 text-primary-pressed">
             {error}
           </p>
         )}
 
         <div className="mt-auto space-y-4 pt-10">
           <Button
-            className="min-h-[60px] w-full"
+            className="min-h-14 w-full"
             disabled={isSubmitting}
             type="submit"
           >

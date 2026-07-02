@@ -9,15 +9,15 @@ export function FeedbackBanner({ message, tone }: FeedbackBannerProps) {
   return (
     <div
       aria-live="polite"
-      className={`animate-feedback-pop flex min-h-[42px] items-center gap-3 rounded-[16px] border px-4 text-sm font-bold leading-[18px] ${
+      className={`animate-feedback-pop flex min-h-11 items-center gap-3 rounded-2xl border px-4 text-sm font-bold leading-5 ${
         isSuccess
-          ? 'border-[#a8ebc8] bg-[#e8fff4] text-[#116b45]'
-          : 'border-[#ffc1b4] bg-[#ffe2d9] text-primary-pressed'
+          ? 'border-success-border bg-success-soft text-success-strong'
+          : 'border-primary-border-soft bg-primary-soft text-primary-pressed'
       }`}
     >
       <span
         aria-hidden="true"
-        className={`h-[18px] w-[18px] rounded-full ${
+        className={`h-5 w-5 shrink-0 rounded-full ${
           isSuccess ? 'bg-success' : 'bg-error'
         }`}
       />

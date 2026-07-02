@@ -53,7 +53,7 @@ export function ProfileRoute({ user }: ProfileRouteProps) {
           <StatCard label="Kata Benar" value={stats.totalCorrectWords} />
           <StatCard label="Kombo" value={stats.bestStreak} />
         </div>
-        <div className="mt-3 grid grid-cols-2 gap-4">
+        <div className="mt-3 grid grid-cols-2 gap-3">
           <StatCard label="Akurasi" large value={`${stats.averageAccuracy}%`} />
           <StatCard label="Skor Terbaik" large value={stats.bestStreak} />
         </div>
@@ -76,7 +76,7 @@ export function ProfileRoute({ user }: ProfileRouteProps) {
             Riwayat Permainan
           </h2>
           {playerData.error && (
-            <p className="mt-4 rounded-[16px] border border-[#ffc1b4] bg-[#ffe2d9] p-4 text-sm font-bold leading-5 text-primary-pressed">
+            <p className="mt-4 rounded-2xl border border-primary-border-soft bg-primary-soft p-4 text-sm font-bold leading-5 text-primary-pressed">
               {playerData.error}
             </p>
           )}
@@ -180,15 +180,15 @@ type PlayerCardProps = {
 
 function PlayerCard({ isAnonymous, name }: PlayerCardProps) {
   return (
-    <div className="flex min-h-[104px] items-center gap-4 rounded-[24px] border border-border bg-surface px-5 py-5 shadow-[0_4px_5px_rgba(139,94,0,0.14)]">
-      <div className="flex h-[60px] w-[60px] shrink-0 items-center justify-center rounded-full bg-primary text-[28px] font-extrabold leading-[34px] text-text-inverse">
+    <div className="flex min-h-28 items-center gap-4 rounded-card border border-border bg-surface px-5 py-5 shadow-warm-sm">
+      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary text-page-title font-extrabold text-text-inverse">
         {name.trim().charAt(0).toUpperCase() || 'P'}
       </div>
       <div className="min-w-0">
-        <h1 className="truncate text-xl font-extrabold leading-6 text-text-primary">
+        <h2 className="truncate text-xl font-extrabold leading-6 text-text-primary">
           {name}
-        </h1>
-        <p className="mt-1 text-sm font-medium leading-[18px] text-text-secondary">
+        </h2>
+        <p className="mt-1 text-sm font-medium leading-5 text-text-secondary">
           {isAnonymous ? 'Mode tamu' : 'Akun tersimpan'}
         </p>
       </div>
@@ -205,18 +205,18 @@ type StatCardProps = {
 function StatCard({ label, large = false, value }: StatCardProps) {
   return (
     <div
-      className={`relative rounded-[18px] border border-border bg-surface px-3 py-3 shadow-[0_4px_5px_rgba(139,94,0,0.14)] ${
-        large ? 'min-h-[74px]' : 'min-h-[74px]'
+      className={`relative rounded-control border border-border bg-surface px-3 py-3 shadow-warm-sm ${
+        large ? 'min-h-20' : 'min-h-20'
       }`}
     >
       <span
         aria-hidden="true"
-        className="absolute right-3 top-3 h-[18px] w-[18px] rounded-full bg-accent"
+        className="absolute right-3 top-3 h-5 w-5 rounded-full bg-accent"
       />
-      <p className="pr-5 text-2xl font-extrabold leading-[26px] text-text-primary">
+      <p className="pr-6 text-2xl font-extrabold leading-7 text-text-primary">
         {value}
       </p>
-      <p className="mt-1 text-[11px] font-bold leading-[14px] text-text-secondary">
+      <p className="mt-1 text-xs font-bold leading-4 text-text-secondary">
         {label}
       </p>
     </div>
@@ -251,11 +251,11 @@ function AccountControls({
   const isAnonymous = user?.isAnonymous ?? true;
 
   return (
-    <section className="mt-6 rounded-[24px] border border-border bg-surface-raised p-5 shadow-[0_4px_5px_rgba(139,94,0,0.14)]">
-      <h2 className="text-[17px] font-bold leading-[22px] text-text-primary">
+    <section className="mt-6 rounded-card border border-border bg-surface-raised p-5 shadow-warm-sm">
+      <h2 className="text-base font-bold leading-5 text-text-primary">
         {isAnonymous ? 'Simpan Progres' : 'Akun Tersimpan'}
       </h2>
-      <p className="mt-2 text-[13px] font-medium leading-[18px] text-text-secondary">
+      <p className="mt-2 text-caption font-medium text-text-secondary">
         {isAnonymous
           ? 'Hubungkan Google agar riwayat permainan tidak hilang.'
           : 'Progres tersimpan di akun Google ini.'}
@@ -285,7 +285,7 @@ function AccountControls({
                 </span>
                 <input
                   autoComplete="nickname"
-                  className="focus-ring mt-2 w-full rounded-[18px] border border-[#ddba5e] bg-surface px-4 py-3 text-sm font-bold text-text-primary shadow-[0_4px_5px_rgba(139,94,0,0.14)] disabled:bg-[#efe8d8]"
+                  className="focus-ring mt-2 min-h-12 w-full rounded-control border border-border-strong bg-surface px-4 py-3 text-sm font-bold text-text-primary shadow-warm-sm disabled:bg-disabled-soft"
                   disabled={pendingAction !== null}
                   onChange={(event) => onDisplayNameChange(event.target.value)}
                   type="text"
@@ -319,13 +319,13 @@ function AccountControls({
         </p>
       )}
       {errorMessage && (
-        <p className="mt-4 rounded-[16px] border border-[#ffc1b4] bg-[#ffe2d9] p-3 text-xs font-bold leading-5 text-primary-pressed">
+        <p className="mt-4 rounded-2xl border border-primary-border-soft bg-primary-soft p-3 text-xs font-bold leading-5 text-primary-pressed">
           {errorMessage}
         </p>
       )}
 
       {isAnonymous && (
-        <p className="mt-4 text-[11px] font-medium leading-5 text-text-secondary">
+        <p className="mt-4 text-xs font-medium leading-5 text-text-secondary">
           Jika akun Google sudah ada, progres tamu akan digabungkan setelah
           masuk.
         </p>
@@ -341,7 +341,7 @@ type GameHistoryProps = {
 function GameHistory({ games }: GameHistoryProps) {
   if (games.length === 0) {
     return (
-      <div className="mt-4 rounded-[18px] border border-border bg-surface px-5 py-4 text-sm font-semibold leading-5 text-text-secondary">
+      <div className="mt-4 rounded-control border border-border bg-surface px-5 py-4 text-sm font-semibold leading-5 text-text-secondary">
         Belum ada riwayat permainan. Mainkan satu ronde untuk melihat progresmu.
       </div>
     );
@@ -351,17 +351,17 @@ function GameHistory({ games }: GameHistoryProps) {
     <ol className="mt-4 space-y-3">
       {games.slice(0, 6).map((game) => (
         <li
-          className="flex min-h-[58px] items-center gap-3 rounded-[18px] border border-border bg-surface px-4 py-3 shadow-[0_4px_5px_rgba(139,94,0,0.14)]"
+          className="flex min-h-16 items-center gap-3 rounded-control border border-border bg-surface px-4 py-3 shadow-warm-sm"
           key={game.id}
         >
-          <span className="h-[22px] w-[22px] shrink-0 rounded-full bg-secondary" />
+          <span className="h-6 w-6 shrink-0 rounded-full bg-secondary" />
           <div className="min-w-0">
-            <p className="truncate text-sm font-bold leading-[18px] text-text-primary">
+            <p className="truncate text-sm font-bold leading-5 text-text-primary">
               {game.score} kata • {formatAccuracy(game.accuracy)}%
             </p>
-            <p className="mt-0.5 truncate text-xs font-medium leading-[14px] text-text-secondary">
+            <p className="mt-1 truncate text-xs font-medium leading-4 text-text-secondary">
               {formatGameDate(game.startedAtMs)} • {game.settings.duration}{' '}
-              detik • {game.performance}
+              detik • performa {game.performance}
             </p>
           </div>
         </li>

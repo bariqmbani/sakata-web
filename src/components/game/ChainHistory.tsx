@@ -20,10 +20,10 @@ export function ChainHistory({ answers }: ChainHistoryProps) {
         {latestAnswers.map((answer, index) => (
           <li className="contents" key={`${answer.word}-${index}`}>
             <span
-              className={`rounded-full border border-border px-4 py-1.5 text-xs font-bold leading-[18px] text-text-primary ${
+              className={`max-w-full break-all rounded-full border border-border px-4 py-1.5 text-xs font-bold leading-5 text-text-primary ${
                 index === latestAnswers.length - 1
-                  ? 'bg-[#e8fffa]'
-                  : 'bg-[#fff1c2]'
+                  ? 'bg-secondary-soft'
+                  : 'bg-surface-chip'
               }`}
             >
               {answer.word}
@@ -31,7 +31,7 @@ export function ChainHistory({ answers }: ChainHistoryProps) {
             {index < latestAnswers.length - 1 && (
               <span
                 aria-hidden="true"
-                className="text-sm font-bold leading-[18px] text-text-secondary"
+                className="text-sm font-bold leading-5 text-text-secondary"
               >
                 →
               </span>

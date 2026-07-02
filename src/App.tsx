@@ -37,7 +37,7 @@ function AppProviders() {
     return (
       <AppShell>
         <div className="flex flex-1 items-center justify-center p-7">
-          <div className="rounded-[24px] border border-[#ffc1b4] bg-[#ffe2d9] p-6 text-center shadow-[0_4px_5px_rgba(139,94,0,0.14)]">
+          <div className="rounded-card border border-primary-border-soft bg-primary-soft p-6 text-center shadow-warm-sm">
             <h1 className="text-2xl font-extrabold leading-8">
               Terjadi Kesalahan
             </h1>

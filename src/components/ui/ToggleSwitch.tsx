@@ -18,15 +18,15 @@ export function ToggleSwitch({
     <button
       aria-label={label}
       aria-pressed={checked}
-      className={`focus-ring relative h-8 w-[54px] rounded-full transition-colors ${
+      className={`focus-ring relative h-11 w-16 shrink-0 rounded-full transition-colors ${
         checked ? 'bg-secondary' : 'bg-disabled'
       } ${className}`}
       type="button"
       {...props}
     >
       <span
-        className={`absolute top-1 h-6 w-6 rounded-full bg-surface shadow-[0_2px_4px_rgba(36,34,43,0.18)] transition-transform ${
-          checked ? 'translate-x-[26px]' : 'translate-x-1'
+        className={`absolute left-2 top-2 h-7 w-7 rounded-full bg-surface shadow-warm-sm transition-transform ${
+          checked ? 'translate-x-5' : 'translate-x-0'
         }`}
       />
     </button>

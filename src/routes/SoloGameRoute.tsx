@@ -203,7 +203,7 @@ export function SoloGameRoute() {
   if (isLoading) {
     return (
       <div className="flex flex-1 items-center justify-center px-7">
-        <p className="rounded-[18px] border border-border bg-surface px-5 py-4 text-sm font-bold shadow-[0_4px_5px_rgba(139,94,0,0.14)]">
+        <p className="rounded-control border border-border bg-surface px-5 py-4 text-sm font-bold shadow-warm-sm">
           Menyiapkan kata...
         </p>
       </div>
@@ -223,29 +223,31 @@ export function SoloGameRoute() {
   }
 
   return (
-    <div className="relative flex min-h-0 flex-1 flex-col">
+    <div className="relative flex h-[100dvh] min-h-0 w-full flex-none flex-col overflow-hidden sm:h-[844px]">
       {isFinished && <GameOverModal game={game} />}
-      <section className="flex min-h-0 flex-1 flex-col px-5 pt-6">
+      <section className="flex min-h-0 flex-1 flex-col overflow-hidden px-5 pt-5">
         <div className="min-h-0 flex-1 overflow-y-auto pb-3">
           <GameStatusBar
             combo={combo}
             remaining={remaining}
             score={game.score}
           />
-          <div className="mt-3">
+          <div className="mt-2">
             <TimerBar duration={game.settings.duration} remaining={remaining} />
           </div>
-          <div className="mt-4">
+          <div className="mt-3">
             <CurrentWordCard
               requiredSyllable={currentLastSyllable}
               syllables={currentAnswer.syllables}
               word={currentAnswer.word}
             />
           </div>
-          <div className="mt-4">
+          <div className="mt-3">
             <ChainHistory answers={game.answers} />
           </div>
-          <div className="mt-3 min-h-[42px]">
+        </div>
+        <div className="shrink-0 pt-3">
+          <div className="min-h-11">
             {feedback && (
               <FeedbackBanner message={feedback.message} tone={feedback.tone} />
             )}
@@ -259,7 +261,7 @@ export function SoloGameRoute() {
             />
           </div>
         </div>
-        <div className="pt-3">
+        <div className="shrink-0 pt-3">
           <GameKeyboard
             allowSkip={game.settings.allowSkip}
             disabled={isFinished || isSubmitting}

@@ -18,7 +18,42 @@
   --color-text-secondary: #6f6575;
   --color-text-inverse: #ffffff;
   --color-border: #f0d38b;
+  --color-border-strong: #ddba5e;
   --color-disabled: #cfc7b8;
+  --color-disabled-soft: #efe8d8;
+  --color-focus: #3a86ff;
+  --color-primary-soft: #ffe2d9;
+  --color-primary-soft-hover: #ffd6c9;
+  --color-primary-border-soft: #ffc1b4;
+  --color-secondary-soft: #e8fffa;
+  --color-secondary-border-soft: #91e6d8;
+  --color-secondary-strong: #087f72;
+  --color-success-soft: #e8fff4;
+  --color-success-border: #a8ebc8;
+  --color-success-strong: #116b45;
+  --color-surface-soft: #fff2c7;
+  --color-surface-chip: #fff1c2;
+  --color-surface-badge: #fff8e2;
+  --radius-control: 18px;
+  --radius-card: 24px;
+  --radius-panel: 28px;
+  --shadow-warm-sm: 0 4px 5px rgba(139, 94, 0, 0.14);
+  --shadow-warm-md: 0 4px 10px rgba(139, 94, 0, 0.14);
+  --shadow-warm-lg: 0 8px 9px rgba(139, 94, 0, 0.18);
+  --shadow-shell: 0 18px 38px rgba(139, 94, 0, 0.22);
+  --shadow-modal: 0 18px 38px rgba(36, 34, 43, 0.24);
+  --text-page-title: 1.75rem;
+  --text-page-title--line-height: 2.125rem;
+  --text-game-word: 2.375rem;
+  --text-game-word--line-height: 2.75rem;
+  --text-required-syllable: 2.125rem;
+  --text-required-syllable--line-height: 2.5rem;
+  --text-status-value: 1.875rem;
+  --text-status-value--line-height: 2.125rem;
+  --text-body-copy: 0.9375rem;
+  --text-body-copy--line-height: 1.375rem;
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.125rem;
 }
 
 :root {
@@ -53,7 +88,7 @@ input {
 }
 
 .focus-ring:focus-visible {
-  outline-color: #3a86ff;
+  outline-color: var(--color-focus);
 }
 
 @keyframes horizontal-shaking {
@@ -76,8 +111,8 @@ input {
 
 .animate-shake {
   animation: horizontal-shaking 0.3s ease-in-out;
-  border-color: #e5484d !important;
-  color: #d9472d !important;
+  border-color: var(--color-error) !important;
+  color: var(--color-primary-pressed) !important;
 }
 
 @keyframes feedback-pop {
@@ -118,42 +153,4 @@ input {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
-}
-
-.retro-tooltip {
-  position: relative;
-  display: inline-block;
-}
-
-.retro-tooltip .tooltip-text {
-  visibility: hidden;
-  width: max-content;
-  background-color: black;
-  color: #fff;
-  text-align: center;
-  border-radius: 0; /* Keep it blocky */
-  padding: 8px 12px;
-  position: absolute;
-  bottom: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  font-size: 0.75rem;
-}
-
-.retro-tooltip .tooltip-text::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -6px;
-  border-width: 6px;
-  border-style: solid;
-  border-color: black transparent transparent transparent;
-}
-
-.retro-tooltip:hover .tooltip-text,
-.retro-tooltip:active .tooltip-text,
-.retro-tooltip:focus-within .tooltip-text {
-  visibility: visible;
 }
