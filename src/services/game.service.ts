@@ -3,6 +3,7 @@ import {
   collection,
   doc,
   getDoc,
+  getDocs,
   onSnapshot,
   query,
   setDoc,
@@ -25,6 +26,7 @@ import {
   logGameStart,
   logWordSubmitted
 } from './analytics.service';
+import { getPlayerStats, toImportedSoloGame } from './player-stats.service';
 import { getSoloGameReport } from './report.service';
 import { getRandomWord } from './word.service';
 
@@ -165,6 +167,48 @@ export async function finishSoloGame(game: GameDraft): Promise<void> {
     report.accuracy,
     report.performance,
     playtimeSeconds
+  );
+
+  await refreshUserStats(game.uid);
+}
+
+export async function copySoloGamesToUser(
+  games: GameDraft[],
+  targetUid: string
+): Promise<void> {
+  const { db } = getFirebaseServices();
+  const gamesToCopy = games.filter((game) => game.uid !== targetUid);
+
+  await Promise.all(
+    gamesToCopy.map((game) => {
+      const importedGame = toImportedSoloGame(game, targetUid);
+
+      return setDoc(doc(db, 'games', importedGame.id), {
+        ...importedGame,
+        updatedAt: Timestamp.now()
+      });
+    })
+  );
+
+  await refreshUserStats(targetUid);
+}
+
+export async function refreshUserStats(uid: string): Promise<void> {
+  const { db } = getFirebaseServices();
+  const gamesQuery = query(collection(db, 'games'), where('uid', '==', uid));
+  const snapshot = await getDocs(gamesQuery);
+  const games = snapshot.docs
+    .map((gameSnapshot) => toGameDraft(gameSnapshot.data() as SoloGame))
+    .sort((first, second) => second.startedAtMs - first.startedAtMs);
+  const stats = getPlayerStats(games);
+
+  await setDoc(
+    doc(db, 'users', uid),
+    {
+      stats,
+      updatedAt: Timestamp.now()
+    },
+    { merge: true }
   );
 }
 

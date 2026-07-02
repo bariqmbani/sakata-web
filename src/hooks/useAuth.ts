@@ -2,7 +2,11 @@ import { useEffect, useState } from 'react';
 import type { User } from 'firebase/auth';
 
 import { isFirebaseConfigured } from '@/lib/firebase';
-import { ensureAnonymousUser, subscribeToAuth } from '@/services/auth.service';
+import {
+  ensureAnonymousUser,
+  getAuthErrorMessage,
+  subscribeToAuth
+} from '@/services/auth.service';
 
 type AuthState = {
   user: User | null;
@@ -35,8 +39,7 @@ export function useAuth(): AuthState {
         setState({
           user: null,
           isLoading: false,
-          error:
-            error instanceof Error ? error.message : 'Gagal masuk sebagai tamu.'
+          error: getAuthErrorMessage(error)
         });
       }
     });

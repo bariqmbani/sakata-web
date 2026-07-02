@@ -44,7 +44,7 @@ When a task involves product behavior, UI copy, information architecture, route 
 | Styling      | Tailwind CSS v4                      | Replaces SASS + NES.css from legacy app                                           |
 | Database     | Firebase Firestore                   | Real-time listeners for game state sync                                           |
 | Presence     | Firebase Realtime Database           | Player online/offline/disconnect detection                                        |
-| Auth         | Firebase Authentication              | Anonymous auth for quick play, Google/email for persistent profiles               |
+| Auth         | Firebase Authentication              | Anonymous auth for quick play, Google for persistent profiles                     |
 | Hosting      | Firebase Hosting                     | Or Cloudflare Pages                                                               |
 | Analytics    | Google Analytics (Firebase)          | Track user engagement, page views, and custom events                              |
 | Syllable Eng | `@bariqmbani/sakata-syllable-engine` | Import directly for client-side use.                                              |
@@ -307,13 +307,12 @@ We use Firebase Analytics to track user behavior and game performance. This requ
 
 ## Authentication
 
-Support three auth modes:
+Support two auth modes:
 
 1. **Anonymous** — Auto-created on first visit. Allows immediate play without signup. Profile is ephemeral.
 2. **Google Sign-In** — Persistent profile, stats, and game history.
-3. **Email/Password** — Alternative persistent auth.
 
-Anonymous users can link their account to Google/email later without losing data (`linkWithCredential`).
+Anonymous users can link their account to Google later without losing data.
 
 For solo mode, anonymous auth is sufficient. For multiplayer, encourage (but don't require) sign-in so display names are meaningful.
 
@@ -455,7 +454,7 @@ Acceptance: Solo mode works identically to the legacy app. Game state persists i
 
 ### Phase 2 — User Profiles + History
 
-1. Add Google sign-in and email/password auth
+1. Add Google sign-in auth
 2. Account linking (anonymous → persistent)
 3. User profile page with game stats
 4. Game history list (past solo games)
