@@ -67,17 +67,6 @@ export function HomeRoute({ user }: HomeRouteProps) {
         </button>
       </nav>
 
-      <div className="mt-auto pt-11">
-        <div className="mx-auto flex min-h-24 max-w-[290px] items-center justify-center gap-3 rounded-panel border border-border bg-surface-raised px-7 shadow-warm-md">
-          <ChainChip className="bg-primary text-text-inverse" label="ma" />
-          <ChainChip className="bg-accent text-text-primary" label="kan" />
-          <span className="text-lg font-bold text-text-secondary">→</span>
-          <ChainChip
-            className="bg-secondary text-text-inverse"
-            label="kan..."
-          />
-        </div>
-      </div>
     </div>
   );
 }
@@ -91,21 +80,6 @@ function LogoTile({ className, label }: LogoTileProps) {
   return (
     <span
       className={`absolute flex h-[61px] w-[63px] items-center justify-center rounded-control border-2 border-white text-2xl font-extrabold leading-7 text-white shadow-warm-lg ${className}`}
-    >
-      {label}
-    </span>
-  );
-}
-
-type ChainChipProps = {
-  className: string;
-  label: string;
-};
-
-function ChainChip({ className, label }: ChainChipProps) {
-  return (
-    <span
-      className={`inline-flex min-h-9 min-w-14 items-center justify-center rounded-full border border-border px-4 text-sm font-bold leading-5 ${className}`}
     >
       {label}
     </span>

@@ -209,10 +209,6 @@ function StatCard({ label, large = false, value }: StatCardProps) {
         large ? 'min-h-20' : 'min-h-20'
       }`}
     >
-      <span
-        aria-hidden="true"
-        className="absolute right-3 top-3 h-5 w-5 rounded-full bg-accent"
-      />
       <p className="pr-6 text-2xl font-extrabold leading-7 text-text-primary">
         {value}
       </p>
@@ -354,10 +350,13 @@ function GameHistory({ games }: GameHistoryProps) {
           className="flex min-h-16 items-center gap-3 rounded-control border border-border bg-surface px-4 py-3 shadow-warm-sm"
           key={game.id}
         >
-          <span className="h-6 w-6 shrink-0 rounded-full bg-secondary" />
+          <span
+            aria-hidden="true"
+            className={`h-6 w-6 shrink-0 rounded-full ${getPerformanceMarkerClass(game.performance)}`}
+          />
           <div className="min-w-0">
             <p className="truncate text-sm font-bold leading-5 text-text-primary">
-              {game.score} kata • {formatAccuracy(game.accuracy)}%
+              {game.score} kata • {formatAccuracy(game.accuracy)}% akurasi
             </p>
             <p className="mt-1 truncate text-xs font-medium leading-4 text-text-secondary">
               {formatGameDate(game.startedAtMs)} • {game.settings.duration}{' '}
@@ -368,6 +367,23 @@ function GameHistory({ games }: GameHistoryProps) {
       ))}
     </ol>
   );
+}
+
+function getPerformanceMarkerClass(performance: string): string {
+  switch (performance) {
+    case 'kurang':
+      return 'bg-error';
+    case 'cukup':
+      return 'bg-warning';
+    case 'baik':
+      return 'bg-accent';
+    case 'hebat':
+      return 'bg-secondary';
+    case 'luar biasa':
+      return 'bg-success';
+    default:
+      return 'bg-disabled';
+  }
 }
 
 function formatAccuracy(accuracy: number): string {
