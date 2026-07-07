@@ -6,14 +6,48 @@ const excludedFirstWords = new Set<string>(EXCLUDED_FIRST_WORDS);
 let wordsPromise: Promise<string[]> | null = null;
 let wordSet: Set<string> | null = null;
 
-export async function loadWords(): Promise<string[]> {
+export async function loadWords(
+  onProgress?: (percent: number) => void
+): Promise<string[]> {
   if (!wordsPromise) {
     wordsPromise = fetch('/data/words.json').then(async (response) => {
       if (!response.ok) {
         throw new Error('Daftar kata gagal dimuat.');
       }
 
-      const words = (await response.json()) as string[];
+      const contentLength = Number(response.headers.get('content-length')) || 0;
+      const reader = response.body?.getReader();
+
+      if (!reader) {
+        onProgress?.(100);
+        const words = (await response.json()) as string[];
+        wordSet = new Set(words);
+        return words;
+      }
+
+      const chunks: Uint8Array[] = [];
+      let received = 0;
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        chunks.push(value);
+        received += value.length;
+        if (contentLength > 0) {
+          onProgress?.(Math.round((received / contentLength) * 100));
+        }
+      }
+
+      onProgress?.(100);
+      const totalLength = chunks.reduce((sum, chunk) => sum + chunk.length, 0);
+      const merged = new Uint8Array(totalLength);
+      let offset = 0;
+      for (const chunk of chunks) {
+        merged.set(chunk, offset);
+        offset += chunk.length;
+      }
+      const text = new TextDecoder().decode(merged);
+      const words = JSON.parse(text) as string[];
       wordSet = new Set(words);
       return words;
     });

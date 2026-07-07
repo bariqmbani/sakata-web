@@ -30,7 +30,7 @@ function AppProviders() {
   const error = auth.error ?? dictionary.error;
 
   if (auth.isLoading || dictionary.isLoading) {
-    return <LoadingScreen />;
+    return <LoadingScreen progress={dictionary.progress} />;
   }
 
   if (error) {
