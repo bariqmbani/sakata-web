@@ -3,8 +3,10 @@ import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'node:url';
 import { defineConfig } from 'vitest/config';
 
+import { wordsVersion } from './vite-plugin-words-version';
+
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react(), tailwindcss(), wordsVersion()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
