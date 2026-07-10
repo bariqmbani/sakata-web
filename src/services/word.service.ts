@@ -56,6 +56,12 @@ export async function loadWords(
         // Version file unavailable — proceed without cache
       }
 
+      // If the version cannot be checked, keep the app usable with cached data.
+      if (!hash && cached) {
+        wordSet = new Set(cached.data);
+        return cached.data;
+      }
+
       // Cache hit — version matches
       if (hash && cached && cached.version === hash) {
         wordSet = new Set(cached.data);
@@ -121,6 +127,14 @@ export async function loadWords(
       wordSet = new Set(words);
       return words;
     })();
+
+    const loadingPromise = wordsPromise;
+    void loadingPromise.catch(() => {
+      // A transient failure must not poison all future load attempts.
+      if (wordsPromise === loadingPromise) {
+        wordsPromise = null;
+      }
+    });
   }
 
   return wordsPromise;
