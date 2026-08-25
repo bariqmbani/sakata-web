@@ -40,7 +40,7 @@ export function HowToPlayRoute() {
         <ol className="mt-8 space-y-3">
           <RuleCard
             number={1}
-            text="Kata pertama akan ditentukan secara acak."
+            text="Kata pertama dipilih secara acak."
           />
           <RuleCard
             number={2}
@@ -52,7 +52,7 @@ export function HowToPlayRoute() {
           />
           <RuleCard
             number={4}
-            text="Kata yang sama tidak boleh dipakai dua kali."
+            text="Kata yang sama nggak boleh dipake dua kali."
           />
           <RuleCard number={5} text="Kejar skor sebelum waktu habis." />
         </ol>

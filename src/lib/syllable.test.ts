@@ -34,7 +34,7 @@ describe('syllable client wrapper', () => {
 
   it('throws an error for empty input', async () => {
     await expect(splitWordByLastSyllable('   ')).rejects.toThrow(
-      'Kata wajib diisi.'
+      'Isi kata dulu.'
     );
   });
 

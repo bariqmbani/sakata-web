@@ -74,7 +74,7 @@ describe('word.service', () => {
     vi.stubGlobal('fetch', fetchMock);
 
     await expect(loadWords()).rejects.toThrow(
-      'Daftar kata gagal dimuat.'
+      'Gagal muat daftar kata.'
     );
     await expect(loadWords()).resolves.toEqual(['makan', 'kandidat']);
 

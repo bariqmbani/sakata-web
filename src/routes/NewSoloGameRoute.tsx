@@ -31,7 +31,7 @@ export function NewSoloGameRoute({ user }: NewSoloGameRouteProps) {
     event.preventDefault();
 
     if (!user) {
-      setError('Pengguna belum siap.');
+      setError('Kamu belum siap.');
       return;
     }
 
@@ -43,7 +43,7 @@ export function NewSoloGameRoute({ user }: NewSoloGameRouteProps) {
       void navigate(`/bermain/${gameId}`);
     } catch (error_) {
       setError(
-        error_ instanceof Error ? error_.message : 'Permainan gagal dibuat.'
+        error_ instanceof Error ? error_.message : 'Gagal bikin permainan, coba lagi.'
       );
     } finally {
       setIsSubmitting(false);
@@ -108,7 +108,7 @@ export function NewSoloGameRoute({ user }: NewSoloGameRouteProps) {
               Izinkan Lewati Kata
             </h3>
             <p className="mt-2 text-caption font-medium text-text-secondary">
-              Aktifkan jika kamu ingin bisa melewati kata yang sulit.
+              Aktifin kalau mau bisa skip kata yang susah.
             </p>
           </div>
           <ToggleSwitch

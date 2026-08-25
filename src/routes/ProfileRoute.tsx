@@ -107,17 +107,17 @@ export function ProfileRoute({ user }: ProfileRouteProps) {
       if (user.isAnonymous || !hasGoogleProvider) {
         const linkedUser = await linkCurrentUserWithGoogle();
         await refreshUserStats(linkedUser.uid);
-        setStatusMessage('Akun Google terhubung.');
+        setStatusMessage('Google udah nyambung.');
         return;
       }
 
-      setStatusMessage('Akun Google sudah terhubung.');
+      setStatusMessage('Google udah nyambung.');
     } catch (error) {
       if (user.isAnonymous && isExistingCredentialError(error)) {
         try {
           const signedInUser = await signInWithGoogle();
           await copySoloGamesToUser(guestGames, signedInUser.uid);
-          setStatusMessage('Progres tamu digabungkan ke akun Google.');
+          setStatusMessage('Progres tamu digabung ke akun Google.');
           return;
         } catch (signInError) {
           setErrorMessage(getAuthErrorMessage(signInError));
@@ -144,7 +144,7 @@ export function ProfileRoute({ user }: ProfileRouteProps) {
 
     try {
       await updateCurrentUserDisplayName(displayName);
-      setStatusMessage('Nama pemain diperbarui.');
+      setStatusMessage('Nama pemain udah diupdate.');
     } catch (error) {
       setErrorMessage(getAuthErrorMessage(error));
     } finally {
@@ -164,7 +164,7 @@ export function ProfileRoute({ user }: ProfileRouteProps) {
     try {
       await logout();
       await ensureAnonymousUser();
-      setStatusMessage('Keluar dari akun tersimpan.');
+      setStatusMessage('Keluar dari akun.');
     } catch (error) {
       setErrorMessage(getAuthErrorMessage(error));
     } finally {
@@ -253,8 +253,8 @@ function AccountControls({
       </h2>
       <p className="mt-2 text-caption font-medium text-text-secondary">
         {isAnonymous
-          ? 'Hubungkan Google agar riwayat permainan tidak hilang.'
-          : 'Progres tersimpan di akun Google ini.'}
+          ? 'Hubungin Google biar riwayat main nggak hilang.'
+          : 'Progres disimpan di akun Google ini.'}
       </p>
 
       <div className="mt-4 space-y-3">
@@ -266,10 +266,10 @@ function AccountControls({
           onClick={onGoogleAction}
         >
           {pendingAction === 'google'
-            ? 'Menghubungkan...'
+            ? 'Nyambungin...'
             : hasGoogleProvider
-              ? 'Google Terhubung'
-              : 'Hubungkan Google'}
+              ? 'Google Udah Nyambung'
+              : 'Hubungin Google'}
         </Button>
 
         {!isAnonymous && (
@@ -293,7 +293,7 @@ function AccountControls({
                 disabled={pendingAction !== null}
                 type="submit"
               >
-                {pendingAction === 'name' ? 'Menyimpan...' : 'Simpan Nama'}
+                {pendingAction === 'name' ? 'Nyimpan...' : 'Simpan Nama'}
               </Button>
             </form>
             <Button
@@ -322,7 +322,7 @@ function AccountControls({
 
       {isAnonymous && (
         <p className="mt-4 text-xs font-medium leading-5 text-text-secondary">
-          Jika akun Google sudah ada, progres tamu akan digabungkan setelah
+          Kalau udah punya akun Google, progres tamu bakal digabung pas
           masuk.
         </p>
       )}
@@ -338,7 +338,7 @@ function GameHistory({ games }: GameHistoryProps) {
   if (games.length === 0) {
     return (
       <div className="mt-4 rounded-control border border-border bg-surface px-5 py-4 text-sm font-semibold leading-5 text-text-secondary">
-        Belum ada riwayat permainan. Mainkan satu ronde untuk melihat progresmu.
+        Belum ada riwayat. Main satu ronde dulu buat liat progresmu.
       </div>
     );
   }

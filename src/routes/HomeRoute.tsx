@@ -38,7 +38,7 @@ export function HomeRoute({ user }: HomeRouteProps) {
           Main cepat, pikir cepat, sambung kata!
         </p>
         <p className="mx-auto mt-2 max-w-[282px] text-sm font-medium leading-5 text-text-secondary">
-          Game sambung kata berbasis suku kata Indonesia.
+          Game sambung kata pakai suku kata Indonesia.
         </p>
       </header>
 

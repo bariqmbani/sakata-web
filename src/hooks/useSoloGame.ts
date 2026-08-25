@@ -21,7 +21,7 @@ export function useSoloGame(gameId: string | undefined): SoloGameState {
       setState({
         game: null,
         isLoading: false,
-        error: 'Permainan tidak ditemukan.'
+        error: 'Permainan nggak ketemu.'
       });
       return;
     }

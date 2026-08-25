@@ -32,7 +32,7 @@ export function AnswerDisplay({
           onClick={onClear}
           type="button"
         >
-          Kosong
+          Hapus
         </button>
       </div>
     </div>

@@ -12,7 +12,7 @@ export function getCurrentGameAnswer(answers: GameAnswer[]): GameAnswer {
   const currentAnswer = correctAnswers.at(-1);
 
   if (!currentAnswer) {
-    throw new Error('Permainan belum memiliki kata awal.');
+    throw new Error('Permainan belum punya kata awal.');
   }
 
   return currentAnswer;
@@ -22,7 +22,7 @@ export function getLastSyllableFromAnswer(answer: GameAnswer): string {
   const lastSyllable = answer.syllables.at(-1);
 
   if (!lastSyllable) {
-    throw new Error('Kata tidak memiliki suku kata terakhir.');
+    throw new Error('Kata ini nggak punya suku kata terakhir.');
   }
 
   return lastSyllable;
@@ -61,15 +61,15 @@ export async function validateAnswer(
   const lastSyllable = getLastSyllableFromAnswer(currentAnswer);
 
   if (!word.startsWith(lastSyllable)) {
-    return { isCorrect: false, note: 'kata tidak valid.' };
+    return { isCorrect: false, note: 'Kata harus mulai dari suku kata yang benar.' };
   }
 
   if (!(await isWordExists(word))) {
-    return { isCorrect: false, note: 'kata tidak ditemukan.' };
+    return { isCorrect: false, note: 'Kata nggak ada di kamus, coba kata lain.' };
   }
 
   if (game.answers.some((answer) => answer.word === word)) {
-    return { isCorrect: false, note: 'kata sudah pernah dijawab.' };
+    return { isCorrect: false, note: 'Kata ini udah dipake, coba yang lain.' };
   }
 
   return { isCorrect: true };

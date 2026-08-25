@@ -7,7 +7,7 @@ export function splitWordByLastSyllable(
   const normalizedInput = word.trim().toLowerCase();
   
   if (!normalizedInput) {
-    return Promise.reject(new Error('Kata wajib diisi.'));
+    return Promise.reject(new Error('Isi kata dulu.'));
   }
 
   try {

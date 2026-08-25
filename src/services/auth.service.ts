@@ -89,7 +89,7 @@ export async function linkCurrentUserWithGoogle(): Promise<User> {
   const { auth } = getFirebaseServices();
 
   if (!auth.currentUser) {
-    throw new Error('Pengguna belum masuk.');
+    throw new Error('Kamu belum masuk.');
   }
 
   const result = await linkWithPopup(auth.currentUser, createGoogleProvider());
@@ -111,11 +111,11 @@ export async function updateCurrentUserDisplayName(
   const normalizedDisplayName = displayName.trim();
 
   if (!auth.currentUser) {
-    throw new Error('Pengguna belum masuk.');
+    throw new Error('Kamu belum masuk.');
   }
 
   if (!normalizedDisplayName) {
-    throw new Error('Nama pemain wajib diisi.');
+    throw new Error('Isi nama pemain dulu.');
   }
 
   await updateProfile(auth.currentUser, { displayName: normalizedDisplayName });
@@ -144,20 +144,20 @@ export function getAuthErrorMessage(error: unknown): string {
       return 'Anonymous Authentication belum diaktifkan di Firebase.';
     case 'auth/popup-closed-by-user':
     case 'auth/cancelled-popup-request':
-      return 'Proses masuk dibatalkan.';
+      return 'Login dibatalin.';
     case 'auth/operation-not-allowed':
-      return 'Metode masuk ini belum diaktifkan di Firebase.';
+      return 'Metode login ini belum diaktifkan di Firebase.';
     case 'auth/credential-already-in-use':
     case 'auth/account-exists-with-different-credential':
-      return 'Akun sudah ada. Masuk untuk menggabungkan progres.';
+      return 'Akun udah ada. Masuk buat gabungin progres.';
     case 'auth/invalid-credential':
-      return 'Kredensial akun tidak valid.';
+      return 'Akun nggak valid.';
     case 'auth/provider-already-linked':
-      return 'Metode masuk ini sudah terhubung.';
+      return 'Login ini udah nyambung.';
     case 'auth/requires-recent-login':
-      return 'Silakan masuk ulang sebelum mengubah akun.';
+      return 'Masuk ulang dulu sebelum ganti akun.';
     default:
-      return error instanceof Error ? error.message : 'Aksi akun gagal.';
+      return error instanceof Error ? error.message : 'Gagal, coba lagi.';
   }
 }
 

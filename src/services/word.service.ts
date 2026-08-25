@@ -71,7 +71,7 @@ export async function loadWords(
       // Cache miss — download full data
       const dataRes = await fetch('/data/words.json');
       if (!dataRes.ok) {
-        throw new Error('Daftar kata gagal dimuat.');
+        throw new Error('Gagal muat daftar kata.');
       }
 
       const contentLength =
@@ -86,7 +86,7 @@ export async function loadWords(
             new TextEncoder().encode(JSON.stringify(words))
           );
           if (actualHash !== hash) {
-            throw new Error('Data kata tidak valid.');
+            throw new Error('Data kata nggak valid.');
           }
         }
         if (hash) setCachedWords(words, hash);
@@ -181,13 +181,13 @@ export async function getWordStartsWith(startsWith: string): Promise<string> {
 
 function pickRandomWord(words: string[]): string {
   if (words.length === 0) {
-    throw new Error('Tidak ada kata yang tersedia.');
+    throw new Error('Nggak ada kata tersedia.');
   }
 
   const word = words[Math.floor(Math.random() * words.length)];
 
   if (!word) {
-    throw new Error('Tidak ada kata yang tersedia.');
+    throw new Error('Nggak ada kata tersedia.');
   }
 
   return word;

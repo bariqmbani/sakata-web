@@ -46,7 +46,7 @@ export function useWordDictionary(): WordDictionaryState {
             error:
               error instanceof Error
                 ? error.message
-                : 'Daftar kata gagal dimuat.'
+                : 'Gagal muat daftar kata.'
           });
         }
       });

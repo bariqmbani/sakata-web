@@ -8,10 +8,10 @@ describe('auth.service', () => {
       getAuthErrorMessage({ code: 'auth/admin-restricted-operation' })
     ).toContain('Anonymous Authentication');
     expect(getAuthErrorMessage({ code: 'auth/invalid-credential' })).toBe(
-      'Kredensial akun tidak valid.'
+      'Akun nggak valid.'
     );
     expect(getAuthErrorMessage({ code: 'auth/popup-closed-by-user' })).toBe(
-      'Proses masuk dibatalkan.'
+      'Login dibatalin.'
     );
   });
 

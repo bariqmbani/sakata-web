@@ -34,17 +34,17 @@ export function GameOverModal({ game }: GameOverModalProps) {
             <strong className="text-primary">{getPerformance(game)}</strong>.
           </p>
           <p>
-            Dalam waktu{' '}
+            Dalam{' '}
             <strong className="text-text-primary">
               {game.settings.duration} detik
             </strong>
-            , kamu berhasil menyambungkan{' '}
+            , kamu nyambung{' '}
             <strong className="text-text-primary">
               {countCorrectAnswers(game.answers)} kata
             </strong>{' '}
-            dengan{' '}
+            dengan akurasi{' '}
             <strong className="text-text-primary">
-              akurasi {countAnswersAccuracy(game.answers)}%
+              {countAnswersAccuracy(game.answers)}%
             </strong>
             .
           </p>

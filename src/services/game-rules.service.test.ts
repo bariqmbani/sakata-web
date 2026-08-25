@@ -36,7 +36,7 @@ describe('game-rules.service', () => {
 
     await expect(validateAnswer(makeGame(), 'data')).resolves.toEqual({
       isCorrect: false,
-      note: 'kata tidak valid.'
+      note: 'Kata harus mulai dari suku kata yang benar.'
     });
   });
 
@@ -45,7 +45,7 @@ describe('game-rules.service', () => {
 
     await expect(validateAnswer(makeGame(), 'kancil')).resolves.toEqual({
       isCorrect: false,
-      note: 'kata tidak ditemukan.'
+      note: 'Kata nggak ada di kamus, coba kata lain.'
     });
   });
 
@@ -63,7 +63,7 @@ describe('game-rules.service', () => {
 
     await expect(validateAnswer(game, 'kandidat')).resolves.toEqual({
       isCorrect: false,
-      note: 'kata sudah pernah dijawab.'
+      note: 'Kata ini udah dipake, coba yang lain.'
     });
   });
 

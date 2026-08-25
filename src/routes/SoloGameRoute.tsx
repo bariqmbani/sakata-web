@@ -111,7 +111,7 @@ export function SoloGameRoute() {
 
         if (!answer.isCorrect) {
           setFeedback({
-            message: answer.note ?? 'kata tidak valid.',
+            message: answer.note ?? 'Kata nggak valid.',
             tone: 'error'
           });
           setTimeout(() => setIsInvalidAnswer(true), 10);
@@ -129,7 +129,7 @@ export function SoloGameRoute() {
       } catch (error_) {
         setFeedback({
           message:
-            error_ instanceof Error ? error_.message : 'Jawaban gagal dikirim.',
+            error_ instanceof Error ? error_.message : 'Jawaban nggak terkirim, coba lagi.',
           tone: 'error'
         });
         setTimeout(() => setIsInvalidAnswer(true), 10);

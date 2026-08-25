@@ -39,7 +39,7 @@ function AppProviders() {
         <div className="flex flex-1 items-center justify-center p-7">
           <div className="rounded-card border border-primary-border-soft bg-primary-soft p-6 text-center shadow-warm-sm">
             <h1 className="text-2xl font-extrabold leading-8">
-              Terjadi Kesalahan
+              Ada Masalah
             </h1>
             <p className="mt-4 text-sm font-bold leading-6 text-primary-pressed">
               {error}
