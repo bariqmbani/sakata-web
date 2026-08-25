@@ -12,7 +12,7 @@ export function FeedbackBanner({ message, tone }: FeedbackBannerProps) {
       className={`animate-feedback-pop flex min-h-11 items-center gap-3 rounded-2xl border px-4 text-sm font-bold leading-5 ${
         isSuccess
           ? 'border-success-border bg-success-soft text-success-strong'
-          : 'border-primary-border-soft bg-primary-soft text-primary-pressed'
+          : 'border-primary-border-soft bg-primary-soft text-primary-strong'
       }`}
     >
       <span

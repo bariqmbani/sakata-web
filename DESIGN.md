@@ -27,6 +27,8 @@ The source of truth is a centered mobile shell: design for 390px-wide screens fi
 - `surface-raised`: `#FFFDF4`
 - `primary`: `#FF5C38`
 - `primary-pressed`: `#D9472D`
+- `primary-strong`: `#BC3520`
+- `primary-strong-hover`: `#9E2B16`
 - `secondary`: `#20BFA9`
 - `accent`: `#FFB703`
 - `success`: `#1FA66A`
@@ -49,9 +51,28 @@ The source of truth is a centered mobile shell: design for 390px-wide screens fi
 - Feedback banners: success/error rounded banners with a colored dot and short Indonesian copy.
 - Focus: visible blue focus ring (`#3A86FF`) on all interactive controls.
 
+### Contrast rules for `primary`
+
+White text on `primary` (`#FF5C38`) is only 3.07:1, so it clears WCAG AA as large
+text (≥24px, or ≥18.66px bold) and nowhere else. For anything smaller:
+
+- Filled buttons keep the `primary` fill and switch the label to `text-primary`
+  ink (5.11:1) — the submit key stays visually loud rather than being darkened.
+- Text and icons on `primary-soft` use `primary-strong` (4.67:1), not
+  `primary-pressed` (3.50:1, fails).
+- `primary-strong` is also a safe fill behind white text (5.72:1), with
+  `primary-strong-hover` as its hover.
+
+Do not reintroduce an un-layered `button { font: inherit }` rule. Tailwind v4
+utilities live in `@layer utilities`, so any un-layered element rule silently
+overrides every font utility on every button.
+
 ## Layout
 
 - Mobile screen padding: `20–28px`.
+- Chain scaling: below `700px` viewport height the game word drops to 30/36 and
+  chain rows to 14/18, so the chain and required syllable still fit above the
+  fixed keyboard on iPhone SE/8-class screens.
 - Card padding: `18–24px`.
 - Section gap: `24–32px`.
 - Button gap: `12–16px`.

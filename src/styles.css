@@ -25,6 +25,11 @@
   --color-primary-soft: #ffe2d9;
   --color-primary-soft-hover: #ffd6c9;
   --color-primary-border-soft: #ffc1b4;
+  /* Accessible companions to --color-primary. White text on #ff5c38 is 3.07:1,
+     which only clears AA as large text, so small labels use these instead.
+     Mirrors the existing --color-secondary-strong convention. */
+  --color-primary-strong: #bc3520;
+  --color-primary-strong-hover: #9e2b16;
   --color-secondary-soft: #e8fffa;
   --color-secondary-border-soft: #91e6d8;
   --color-secondary-strong: #087f72;
@@ -75,11 +80,6 @@ body,
 body {
   margin: 0;
   scroll-behavior: auto;
-}
-
-button,
-input {
-  font: inherit;
 }
 
 .focus-ring {
@@ -152,5 +152,35 @@ input {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes chain-handoff {
+  0% {
+    transform: translateY(-8px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-chain-handoff {
+  animation: chain-handoff 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Short phones (iPhone SE/8 class) cannot fit the 38px word plus three chain
+   rows above the fixed keyboard. Scale the chain down rather than let the
+   required syllable fall outside the scroll region. */
+@media (max-height: 700px) {
+  .chain-hero {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  .chain-row {
+    font-size: 0.875rem;
+    line-height: 1.125rem;
   }
 }

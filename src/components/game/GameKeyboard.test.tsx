@@ -25,9 +25,9 @@ describe('GameKeyboard', () => {
     );
 
     await user.click(screen.getByRole('button', { name: 'Tombol huruf A' }));
-    await user.click(screen.getByRole('button', { name: 'Hapus jawaban' }));
+    await user.click(screen.getByRole('button', { name: 'Hapus satu huruf' }));
     await user.click(screen.getByRole('button', { name: 'Kirim jawaban' }));
-    await user.click(screen.getByRole('button', { name: 'Lewati jawaban' }));
+    await user.click(screen.getByRole('button', { name: 'Lewati kata ini' }));
 
     expect(onKeyPress).toHaveBeenCalledWith('a');
     expect(onBackspace).toHaveBeenCalledTimes(1);
@@ -51,7 +51,7 @@ describe('GameKeyboard', () => {
       />
     );
 
-    await user.click(screen.getByRole('button', { name: 'Lewati jawaban' }));
+    await user.click(screen.getByRole('button', { name: 'Lewati kata ini' }));
 
     expect(onSkip).not.toHaveBeenCalled();
   });

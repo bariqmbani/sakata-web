@@ -2,13 +2,12 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Navigate, useParams } from 'react-router';
 
 import { AnswerDisplay } from '@/components/game/AnswerDisplay';
-import { ChainHistory } from '@/components/game/ChainHistory';
-import { CurrentWordCard } from '@/components/game/CurrentWordCard';
 import { FeedbackBanner } from '@/components/game/FeedbackBanner';
 import { GameKeyboard } from '@/components/game/GameKeyboard';
 import { GameOverModal } from '@/components/game/GameOverModal';
 import { GameStatusBar } from '@/components/game/GameStatusBar';
 import { TimerBar } from '@/components/game/TimerBar';
+import { WordChain } from '@/components/game/WordChain';
 import { useGameTimer } from '@/hooks/useGameTimer';
 import { useSoloGame } from '@/hooks/useSoloGame';
 import { appendSoloAnswer, finishSoloGame } from '@/services/game.service';
@@ -178,6 +177,14 @@ export function SoloGameRoute() {
       }
 
       if (event.key === 'Enter') {
+        // Enter must still activate whatever control has focus, or the on-screen
+        // keyboard is unusable for anyone navigating by keyboard.
+        const target = event.target as HTMLElement | null;
+
+        if (target?.closest('a[href], button, [role="button"]')) {
+          return;
+        }
+
         event.preventDefault();
         void submitCurrentAnswer();
         return;
@@ -225,8 +232,12 @@ export function SoloGameRoute() {
   return (
     <div className="relative flex h-[100dvh] min-h-0 w-full flex-none flex-col overflow-hidden sm:h-[844px]">
       {isFinished && <GameOverModal game={game} />}
-      <section className="flex min-h-0 flex-1 flex-col overflow-hidden px-5 pt-5">
-        <div className="min-h-0 flex-1 overflow-hidden pb-1">
+      <h1 className="sr-only">Permainan Sa-Kata sedang berlangsung</h1>
+      <section
+        className="flex min-h-0 flex-1 flex-col overflow-hidden px-5 pt-5"
+        inert={isFinished}
+      >
+        <div className="shrink-0">
           <GameStatusBar
             combo={combo}
             remaining={remaining}
@@ -235,15 +246,12 @@ export function SoloGameRoute() {
           <div className="mt-2">
             <TimerBar duration={game.settings.duration} remaining={remaining} />
           </div>
-          <div className="mt-3">
-            <CurrentWordCard
-              requiredSyllable={currentLastSyllable}
-              syllables={currentAnswer.syllables}
-              word={currentAnswer.word}
-            />
-          </div>
-          <div className="mt-3">
-            <ChainHistory answers={game.answers} />
+        </div>
+        {/* mt-auto rather than justify-end: keeps the chain next to the answer
+            field while staying scrollable once it outgrows the space. */}
+        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto pb-1">
+          <div className="mt-auto pt-3">
+            <WordChain answers={game.answers} />
           </div>
         </div>
         <div className="shrink-0 pt-3">
@@ -255,6 +263,7 @@ export function SoloGameRoute() {
           <div className="mt-3">
             <AnswerDisplay
               answer={answerWord}
+              disabled={isFinished || isSubmitting}
               helper={`Mulai dengan "${currentLastSyllable}"`}
               isInvalid={isInvalidAnswer}
               onClear={clearAnswer}

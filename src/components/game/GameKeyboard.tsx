@@ -49,6 +49,7 @@ export function GameKeyboard({
       </KeyboardRow>
       <KeyboardRow className="mt-2">
         <KeyboardKey
+          ariaLabel="Hapus satu huruf"
           disabled={disabled}
           label="Hapus"
           onClick={onBackspace}
@@ -64,6 +65,7 @@ export function GameKeyboard({
           />
         ))}
         <KeyboardKey
+          ariaLabel="Kirim jawaban"
           disabled={disabled}
           label="Kirim"
           onClick={onSubmit}
@@ -73,6 +75,7 @@ export function GameKeyboard({
       </KeyboardRow>
       <div className="mt-2 grid grid-cols-[4rem_1fr] gap-2">
         <KeyboardKey
+          ariaLabel="Lewati kata ini"
           disabled={disabled || !allowSkip}
           label="Lewati"
           onClick={onSkip}
@@ -99,6 +102,7 @@ function KeyboardRow({ children, className = '' }: KeyboardRowProps) {
 }
 
 type KeyboardKeyProps = {
+  ariaLabel?: string;
   disabled: boolean;
   label: string;
   onClick: () => void;
@@ -107,6 +111,7 @@ type KeyboardKeyProps = {
 };
 
 function KeyboardKey({
+  ariaLabel,
   disabled,
   label,
   onClick,
@@ -115,19 +120,20 @@ function KeyboardKey({
 }: KeyboardKeyProps) {
   const toneClass = {
     default: 'border-border bg-surface text-text-primary',
-    primary: 'border-primary-pressed bg-primary text-text-inverse',
+    // Dark ink on the brand orange reads 5.11:1; white on the same fill is only
+    // 3.07:1, so the submit key keeps its colour instead of being darkened.
+    primary:
+      'border-primary-strong bg-primary text-text-primary hover:bg-primary-strong hover:text-text-inverse',
     secondary:
       'border-secondary-border-soft bg-secondary-soft text-secondary-strong',
-    danger: 'border-primary-border-soft bg-primary-soft text-primary-pressed'
+    danger: 'border-primary-border-soft bg-primary-soft text-primary-strong'
   }[tone];
 
   return (
     <button
-      aria-label={
-        label.length === 1 ? `Tombol huruf ${label}` : `${label} jawaban`
-      }
+      aria-label={ariaLabel ?? `Tombol huruf ${label}`}
       className={`focus-ring flex h-11 shrink-0 items-center justify-center rounded-xl border text-center text-sm font-bold leading-5 shadow-warm-sm disabled:cursor-not-allowed disabled:opacity-60 ${
-        wide ? 'w-16 text-caption' : 'min-w-0 flex-1'
+        wide ? 'w-16' : 'min-w-0 flex-1'
       } ${toneClass}`}
       disabled={disabled}
       onClick={onClick}

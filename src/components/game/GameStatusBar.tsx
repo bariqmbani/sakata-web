@@ -5,11 +5,20 @@ type GameStatusBarProps = {
 };
 
 export function GameStatusBar({ remaining, score, combo }: GameStatusBarProps) {
+  // Announcing every tick would drown out the answer field, so the countdown is
+  // only spoken at the moments that change how the player should act.
+  const spokenTime = [30, 10, 5, 3].includes(remaining)
+    ? `Sisa ${remaining} detik`
+    : '';
+
   return (
     <div className="grid grid-cols-3 gap-4">
       <StatusCard label="Waktu" tone="time" value={remaining} />
       <StatusCard label="Skor" tone="score" value={score} />
       <StatusCard label="Kombo" tone="combo" value={`${combo}x`} />
+      <p aria-live="polite" className="sr-only" role="status">
+        {spokenTime}
+      </p>
     </div>
   );
 }
